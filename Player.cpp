@@ -25,16 +25,18 @@ void Player::UpdatePlayer(AnimationManager& manager, double time) {
     manager.SetFlip(false);
   }
 
+   
+
   y_speed_ += (!is_on_ground_) * acceleration_ * time;
 
   x_coord_ += x_speed_ * time;
   y_coord_ += y_speed_ * time;
 
   //###############################################// // to check jump ability
-  if (y_coord_ >= 400 + 200) {
+  if (y_coord_ >= 400 + 200 && !is_on_ground_) {
+    is_on_ground_ = true;
     STATE = stay;
     y_speed_ = 0;
-    is_on_ground_ = true;
   }
   //###############################################//
 
