@@ -19,6 +19,6 @@ void AnimationLoader::LoadSprites(AnimationManager& manager) {
       ++num;
     }
 
-    manager.Create(animations_[i].name, textures, 0.005, 8);
+    manager.Create(animations_[i].name, textures, animations_[i].speed, animations_[i].scale);
   }
 }

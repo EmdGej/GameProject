@@ -15,6 +15,8 @@ LoadSprites - метод принимающий AnimationManager и загруж
 struct AnimationParams {
   std::string path;
   std::string name;
+  double speed;
+  int scale;
 };
 class AnimationLoader {
  public:
