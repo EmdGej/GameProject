@@ -4,7 +4,7 @@ all: main
 main: main.o Animation.o AnimationManager.o
 	g++ main.o Animation.o AnimationManager.o -o sfml-app -lsfml-graphics -lsfml-window -lsfml-system
 
-main.o: main.cpp
+main.o: main.cpp AbstractEntity.hpp
 	g++ -c main.cpp -I /include
 
 AnimationManager.o: AnimationManager.cpp AnimationManager.hpp
@@ -15,5 +15,5 @@ Animation.o: Animation.cpp Animation.hpp
 
 clear:
 	rm sfml-app
-	rm main.o
+	rm *.o
 
