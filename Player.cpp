@@ -25,8 +25,6 @@ void Player::UpdatePlayer(AnimationManager& manager, double time) {
     manager.SetFlip(false);
   }
 
-   
-
   y_speed_ += (!is_on_ground_) * acceleration_ * time;
 
   x_coord_ += x_speed_ * time;
@@ -41,6 +39,8 @@ void Player::UpdatePlayer(AnimationManager& manager, double time) {
   //###############################################//
 
   manager.UpdateFrame(time);
+
+  std::cout << stamina_ << '\n';
 
   ResetKeys();
 }

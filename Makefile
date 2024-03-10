@@ -8,6 +8,7 @@ main.o: main.cpp AbstractEntity.hpp
 	g++ -c main.cpp -I /include
 
 Player.o: Player.cpp Player.hpp
+	g++ -c Player.cpp -I /include
 
 AnimationManager.o: AnimationManager.cpp AnimationManager.hpp
 	g++ -c AnimationManager.cpp -I /include

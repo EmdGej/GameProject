@@ -58,8 +58,17 @@ class Player : public AbstractEntity {
   bool direction_ = false;      // 0 - left, 1 - right
   bool both_pressed_ = false;  // 0 - left, 1 - right
 
+  double stamina_ = 100;
+
   const double kSpeedX = 0.2;
   const double kSpeedY = 2;
+
+  const double kStaminaCoef = 2;
+  const double kStaminaLoss = 0.15;
+  const double kStaminaGet = 0.05;
+  const double kTimeToRestoreStamina = 3;
+
+  sf::Clock time_from_last_stamina_usage_;
 
   void SetState(AnimationManager& manager) {
     if (STATE == stay) {
@@ -81,26 +90,61 @@ class Player : public AbstractEntity {
     if (STATE == climb) {
       manager.SetAnimation("climb");
     }
+
+    if (is_shooting_) {
+      if (STATE == stay) {
+        manager.SetAnimation("stay_shoot");
+      }
+
+      if (STATE == run) {
+        manager.SetAnimation("run_shoot");
+      }
+
+      if (STATE == jump) {
+        manager.SetAnimation("jump_shoot");
+      }
+    }
   }
    
   void UpdateKeys() {
+    //============================== STAY ============================== //
+    if (!(keys_["ArrowLeft"]) && !(keys_["ArrowRight"])) {
+      if (is_on_ground_) {
+        STATE = stay;
+      }
+       
+      x_speed_ = 0;
+    }
+
     //============================== RUN ============================== //
     if (keys_["ArrowLeft"] && keys_["ArrowRight"]) {
       if (!both_pressed_) {
         direction_ = !direction_;
-        x_speed_ = -x_speed_;
+
+        if (keys_["Shift"] && stamina_ > 0) {
+          time_from_last_stamina_usage_.restart();
+          x_speed_ = -x_speed_ * kStaminaCoef;
+          stamina_ -= kStaminaLoss;
+        } else {
+          x_speed_ = -x_speed_;
+        }
       }
 
       if (is_on_ground_) {
         STATE = run;
       }
-
       both_pressed_ = true;
     } else if (keys_["ArrowLeft"]) {
       if (STATE == stay) {
         STATE = run;
       }
-      x_speed_ = -kSpeedX;
+      if (keys_["Shift"] && stamina_ > 0) {
+          time_from_last_stamina_usage_.restart();
+          x_speed_ = -kSpeedX * kStaminaCoef;
+          stamina_ -= kStaminaLoss;
+      } else {
+          x_speed_ = -kSpeedX;
+      }
 
       both_pressed_ = false;
       direction_ = 0;
@@ -108,7 +152,13 @@ class Player : public AbstractEntity {
       if (STATE == stay) {
         STATE = run;
       }
-      x_speed_ = kSpeedX;
+      if (keys_["Shift"] && stamina_ > 0) {
+          time_from_last_stamina_usage_.restart();
+          x_speed_ = kSpeedX * kStaminaCoef;
+          stamina_ -= kStaminaLoss;
+      } else {
+          x_speed_ = kSpeedX;
+      }
 
       both_pressed_ = false;
       direction_ = 1;
@@ -118,6 +168,7 @@ class Player : public AbstractEntity {
     if (keys_["Z"]) {
       if (STATE == stay || STATE == run || STATE == slide || STATE == climb) {
         STATE = jump;
+
         y_speed_ = -kSpeedY;
 
         is_on_ground_ = false;
@@ -129,19 +180,15 @@ class Player : public AbstractEntity {
       is_shooting_ = true;
     }
 
-    //============================== STAY ============================== //
-
-    if (!(keys_["ArrowLeft"]) && !(keys_["ArrowRight"]) && is_on_ground_) {
-      STATE = stay;
-       
-      x_speed_ = 0;
-    }
-
     if (!keys_["X"]) {
       is_shooting_ = false;
     }
 
-
+    if (((!keys_["Shift"] && stamina_ < 100) || (keys_["Shift"] && stamina_ < 100 && x_speed_ == 0))) {
+      if (time_from_last_stamina_usage_.getElapsedTime().asSeconds() >= kTimeToRestoreStamina) {
+        stamina_ += kStaminaGet;
+      }
+    }
   }
 
   void ResetKeys() {
