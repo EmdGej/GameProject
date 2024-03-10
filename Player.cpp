@@ -1,7 +1,7 @@
 #include "Player.hpp"
 
-
-Player::Player(double x_coord, double y_coord, int32_t health, int32_t damage, double acceleration) {
+Player::Player(double x_coord, double y_coord, int32_t health, int32_t damage,
+               double acceleration) {
   x_coord_ = x_coord;
   y_coord_ = y_coord;
   health_ = health;
@@ -20,9 +20,9 @@ void Player::UpdatePlayer(AnimationManager& manager, double time) {
   SetState(manager);
 
   if (direction_) {
-      manager.SetFlip(true);
+    manager.SetFlip(true);
   } else {
-      manager.SetFlip(false);
+    manager.SetFlip(false);
   }
 
   y_speed_ += (!is_on_ground_) * acceleration_ * time;
@@ -30,14 +30,20 @@ void Player::UpdatePlayer(AnimationManager& manager, double time) {
   x_coord_ += x_speed_ * time;
   y_coord_ += y_speed_ * time;
 
+  //###############################################// // to check jump ability
+  if (y_coord_ >= 400 + 200) {
+    STATE = stay;
+    y_speed_ = 0;
+    is_on_ground_ = true;
+  }
+  //###############################################//
+
   manager.UpdateFrame(time);
 
   ResetKeys();
 }
 
-void Player::SetKeys(std::string key, bool flag) {
-  keys_[key] = flag;
-}
+void Player::SetKeys(std::string key, bool flag) { keys_[key] = flag; }
 
 double Player::GetXCoord() { return x_coord_; }
 
