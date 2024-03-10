@@ -11,7 +11,7 @@ LoadSprites - метод принимающий AnimationManager и загруж
 #include <fstream>
 #include <iostream>
 
-#include "AnimationManager.hpp"
+#include "Player.hpp"
 struct AnimationParams {
   std::string path;
   std::string name;
