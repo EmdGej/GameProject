@@ -1,1 +1,1 @@
-Game created by tsiazhenkov vilaliy and piniazik maksim
+Главная ветка разработки
