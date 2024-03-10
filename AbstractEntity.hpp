@@ -10,7 +10,7 @@ class AbstractEntity {
   double x_coord_ = 0;
   double y_coord_ = 0;
 
-  double damage_ = 0;
+  int32_t damage_ = 0;
 
   bool is_shooting_ = false;
   bool is_on_ground_ = false;
