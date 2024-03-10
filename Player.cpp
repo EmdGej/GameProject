@@ -40,8 +40,6 @@ void Player::UpdatePlayer(AnimationManager& manager, double time) {
 
   manager.UpdateFrame(time);
 
-  std::cout << stamina_ << '\n';
-
   ResetKeys();
 }
 

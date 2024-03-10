@@ -34,7 +34,6 @@ left, 1 - right - направление движения игрока const dou
 */
 
 #include "AbstractEntity.hpp"
-#include <iostream>
 
 class Player : public AbstractEntity {
  public:
