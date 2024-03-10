@@ -1,25 +1,30 @@
-#include "AnimationManager.hpp"
+/*
+AnimationLoader - класс, который позволяет загрузить спрайты по их параметрам.
+
+Констрируется от массива AnimationParams. В AnimationParams содержится название
+path - путь до папки с нужными текстурами, name - название спрайта.
+
+LoadSprites - метод принимающий AnimationManager и загружающий в него
+соответствующие спрайты.
+*/
+
 #include <fstream>
+#include <iostream>
+
+#include "AnimationManager.hpp"
+struct AnimationParams {
+  std::string path;
+  std::string name;
+};
 class AnimationLoader {
-    public:
-    AnimationLoader(const std::vector<std::pair<std::string, std::string>>& sprites_dir): sprites_dir_(sprites_dir) {}
-    void LoadSprites(AnimationManager& manager) {
-        for(size_t i = 0; i < sprites_dir_.size(); ++i) {
-            std::vector<sf::Texture> textures;
-            std::fstream fileStream;
-            size_t num = 0;
-            fileStream.open(sprites_dir_[i].first + std::to_string(num + 1) + ".png");
-            while(!fileStream.fail()) {
-                sf::Texture texture;
-                texture.loadFromFile(sprites_dir_[i].first + std::to_string(i) + ".png");
-                textures.push_back(texture);
-                ++num;
-                fileStream.open(sprites_dir_[i].first + std::to_string(num + 1) + ".png");
-            }
-            manager.Create(sprites_dir_[i].second, textures,0.005, 8);
-        }
-    }
-    private:
-    std::vector<std::pair<std::string, std::string>> sprites_dir_;
-    
+ public:
+  AnimationLoader(const std::vector<AnimationParams>& animations);
+  void LoadSprites(AnimationManager& manager);
+
+ private:
+  bool file_exists(const std::string& str) {
+    std::ifstream fs(str);
+    return fs.is_open();
+  }
+  std::vector<AnimationParams> animations_;
 };
