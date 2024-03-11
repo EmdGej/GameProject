@@ -54,3 +54,10 @@ void Player::SetDoubleJumpAbility(bool ability) {
   has_double_jump_ = ability;
   is_double_jump_available_ = has_double_jump_;
 }
+
+void Player::SetSpeedX(double value) { kSpeedX = value; }
+void Player::SetSpeedY(double value) { kSpeedY = value; }
+void Player::SetStaminaCoef(double value) { kStaminaCoef = value; }
+void Player::SetStaminaLoss(double value) { kStaminaLoss = value; }
+void Player::SetStaminaGet(double value) { kStaminaGet = value; }
+void Player::SetTimeToRestoreStamina(double value) { kTimeToRestoreStamina = value; }

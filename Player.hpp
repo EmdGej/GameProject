@@ -51,10 +51,17 @@ class Player : public AbstractEntity {
 
   double GetYCoord();
 
+  void SetSpeedX(double value);
+  void SetSpeedY(double value);
+  void SetStaminaCoef(double value);
+  void SetStaminaLoss(double value);
+  void SetStaminaGet(double value);
+  void SetTimeToRestoreStamina(double value);
+
   void SetDoubleJumpAbility(bool ability);
 
  private:
-  enum { stay, run, jump, slide, climb } STATE;
+  enum { stay, run, jump, die, climb } STATE;
   std::unordered_map<std::string, bool> keys_;
 
   double acceleration_ = 0;
@@ -62,14 +69,14 @@ class Player : public AbstractEntity {
   bool direction_ = false;     // 0 - left, 1 - right
   bool both_pressed_ = false;  // 0 - left, 1 - right
 
-  const double kSpeedX = 0.2;
-  const double kSpeedY = 2;
+  double kSpeedX = 0.2;
+  double kSpeedY = 2;
 
   double stamina_ = 100;
-  const double kStaminaCoef = 2;
-  const double kStaminaLoss = 0.015;
-  const double kStaminaGet = 0.008;
-  const double kTimeToRestoreStamina = 2;
+  double kStaminaCoef = 2;
+  double kStaminaLoss = 0.015;
+  double kStaminaGet = 0.008;
+  double kTimeToRestoreStamina = 2;
 
   sf::Clock time_from_last_stamina_usage_;
 
@@ -90,8 +97,8 @@ class Player : public AbstractEntity {
       manager.SetAnimation("jump");
     }
 
-    if (STATE == slide) {
-      manager.SetAnimation("slide");
+    if (STATE == die) {
+      manager.SetAnimation("die");
     }
 
     if (STATE == climb) {
@@ -115,6 +122,11 @@ class Player : public AbstractEntity {
 
   void UpdateKeys(double time) {
     //============================== STAY ============================== //
+    if (health_ <= 0) {
+      STATE = die;
+      return;
+    }
+
     if (!(keys_["ArrowLeft"]) && !(keys_["ArrowRight"])) {
       if (is_on_ground_) {
         STATE = stay;
@@ -186,7 +198,7 @@ class Player : public AbstractEntity {
     }
     
     if (keys_["Z"]) {
-      if (STATE == stay || STATE == run || STATE == slide || STATE == climb) {
+      if (STATE == stay || STATE == run || STATE == climb) {
         STATE = jump;
 
         y_speed_ = -kSpeedY;
