@@ -1,11 +1,14 @@
 all: main
 	./sfml-app
 
-main: main.o Animation.o AnimationManager.o Player.o AnimationLoader.o
-	g++ -L/lib main.o Animation.o AnimationManager.o Player.o AnimationLoader.o -o sfml-app -lsfml-graphics -lsfml-window -lsfml-system
+main: main.o Animation.o AnimationManager.o Player.o AnimationLoader.o MapLoader.o
+	g++ -L/lib main.o Animation.o AnimationManager.o Player.o AnimationLoader.o MapLoader.o -o sfml-app -lsfml-graphics -lsfml-window -lsfml-system
 
-main.o: main.cpp AbstractEntity.hpp 
+main.o: main.cpp
 	g++ -c main.cpp -I /include
+
+MapLoader.o: MapLoader.cpp MapLoader.hpp
+	g++ -c MapLoader.cpp -I /include
 
 AnimationLoader.o: AnimationLoader.cpp AnimationLoader.hpp
 	g++ -c AnimationLoader.cpp -I /include
@@ -21,6 +24,5 @@ Animation.o: Animation.cpp Animation.hpp
 
 clear:
 	rm *.o
-	rm sfml-app
-	 
+	rm sfml-app	 
 
