@@ -1,3 +1,6 @@
+#ifndef PLAYER
+#define PLAYER
+
 /*
 Player - класс игрока в игре, унаследованный от базовой сущности AbstractEntity
 
@@ -232,3 +235,5 @@ class Player : public AbstractEntity {
     }
   }
 };
+
+#endif

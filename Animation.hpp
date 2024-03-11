@@ -1,3 +1,6 @@
+#ifndef ANIMATION
+#define ANIMATION
+
 /*
 Animation - класс, отвечающий за отрисовку анимации объекта.
 
@@ -96,3 +99,5 @@ class Animation {
 
   sf::Sprite sprite_;
 };
+
+#endif

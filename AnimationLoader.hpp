@@ -1,3 +1,6 @@
+#ifndef ANIMATION_LOADER
+#define ANIMATION_LOADER
+
 /*
 AnimationLoader - класс, который позволяет загрузить спрайты по их параметрам.
 
@@ -30,3 +33,5 @@ class AnimationLoader {
   }
   std::vector<AnimationParams> animations_;
 };
+
+#endif

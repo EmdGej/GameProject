@@ -1,3 +1,6 @@
+#ifndef ABSTRACT_ENTITY
+#define ABSTRACT_ENTITY
+
 #include "AnimationManager.hpp"
 #include <unordered_map>
 #include <vector>
@@ -21,3 +24,5 @@ class AbstractEntity {
 
   AnimationManager manager_;
 };
+
+#endif

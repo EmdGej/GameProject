@@ -1,3 +1,6 @@
+#ifndef ANIMATION_MANAGER
+#define ANIMATION_MANAGER
+
 #include "Animation.hpp"
 
 /*
@@ -56,3 +59,5 @@ class AnimationManager {
   std::string current_animation_;
   std::unordered_map<std::string, Animation> animations_list_;
 };
+
+#endif
