@@ -74,3 +74,6 @@ void Animation::SetFlip(bool flip) { flip_ = flip; }
 void Animation::SetIsPlaying(bool is_playing) { is_playing_ = is_playing; }
 
 void Animation::SetScale(int32_t scale) { scale_ = scale; }
+
+int32_t Animation::GetAnimationWidth() { return frames_[0].width; }
+int32_t Animation::GetAnimationHeight() { return frames_[0].height; }

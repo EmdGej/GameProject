@@ -55,6 +55,9 @@ class AnimationManager {
 
   void SetAnimationPlay();
 
+  int32_t GetAnimationHeight();
+  int32_t GetAnimationWidth();
+
  private:
   std::string current_animation_;
   std::unordered_map<std::string, Animation> animations_list_;

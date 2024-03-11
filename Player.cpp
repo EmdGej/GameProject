@@ -61,3 +61,6 @@ void Player::SetStaminaCoef(double value) { kStaminaCoef = value; }
 void Player::SetStaminaLoss(double value) { kStaminaLoss = value; }
 void Player::SetStaminaGet(double value) { kStaminaGet = value; }
 void Player::SetTimeToRestoreStamina(double value) { kTimeToRestoreStamina = value; }
+
+int32_t Player::GetAnimationHeight() { return manager_.GetAnimationHeight(); }
+int32_t Player::GetAnimationWidth() { return manager_.GetAnimationWidth(); }

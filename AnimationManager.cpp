@@ -32,3 +32,11 @@ void AnimationManager::SetAnimationPause() {
 void AnimationManager::SetAnimationPlay() {
   animations_list_[current_animation_].SetIsPlaying(true);
 }
+
+int32_t AnimationManager::GetAnimationHeight() {
+  return animations_list_[current_animation_].GetAnimationHeight();
+}
+
+int32_t AnimationManager::GetAnimationWidth() {
+  return animations_list_[current_animation_].GetAnimationWidth();
+}

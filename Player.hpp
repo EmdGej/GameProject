@@ -60,6 +60,9 @@ class Player : public AbstractEntity {
 
   void SetDoubleJumpAbility(bool ability);
 
+  int32_t GetAnimationWidth();
+  int32_t GetAnimationHeight();
+
  private:
   enum { stay, run, jump, die, climb } STATE;
   std::unordered_map<std::string, bool> keys_;

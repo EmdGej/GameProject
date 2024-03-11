@@ -34,4 +34,3 @@ void MapLoader::DrawMap(sf::RenderWindow& window, double offsetX,
     }
   }
 }
-
