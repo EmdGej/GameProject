@@ -36,7 +36,7 @@ void Player::UpdatePlayer(AnimationManager& manager, double time) {
     STATE = stay;
     y_speed_ = 0;
 
-    is_double_jump_available_ = true;
+    is_double_jump_available_ = has_double_jump_;
   }
   //###############################################//
 

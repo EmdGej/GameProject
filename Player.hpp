@@ -72,6 +72,7 @@ class Player : public AbstractEntity {
 
   bool is_double_jump_available_ = false;
   bool was_jump_pressed_ = false;
+  bool has_double_jump_ = false;
 
   void SetState(AnimationManager& manager) {
     if (STATE == stay) {
