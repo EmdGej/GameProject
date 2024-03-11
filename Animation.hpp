@@ -73,6 +73,9 @@ class Animation {
 
   int32_t GetScale() const;
 
+  int32_t GetAnimationWidth() const;
+  int32_t GetAnimationHeight() const;
+
   // =========== SETTERS ============ //
 
   void SetCurrentFrame(double current_frame);
@@ -83,9 +86,6 @@ class Animation {
   void SetIsPlaying(bool is_playing);
 
   void SetScale(int32_t scale);
-
-  int32_t GetAnimationWidth();
-  int32_t GetAnimationHeight();
 
  private:
   std::vector<sf::IntRect> frames_;
