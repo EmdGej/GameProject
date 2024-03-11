@@ -63,7 +63,7 @@ class Player : public AbstractEntity {
   const double kSpeedY = 2;
 
   const double kStaminaCoef = 2;
-  const double kStaminaLoss = 0.15;
+  const double kStaminaLoss = 0.1;
   const double kStaminaGet = 0.05;
   const double kTimeToRestoreStamina = 3;
 
@@ -122,10 +122,10 @@ class Player : public AbstractEntity {
 
         if (keys_["Shift"] && stamina_ > 0) {
           time_from_last_stamina_usage_.restart();
-          x_speed_ = -x_speed_ * kStaminaCoef;
+          x_speed_ = (x_speed_ > 0 ? -kSpeedX : kSpeedX)  * kStaminaCoef;
           stamina_ -= kStaminaLoss;
         } else {
-          x_speed_ = -x_speed_;
+          x_speed_ = (x_speed_ > 0 ? -kSpeedX : kSpeedX);
         }
       }
 
