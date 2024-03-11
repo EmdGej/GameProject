@@ -51,5 +51,6 @@ double Player::GetXCoord() { return x_coord_; }
 double Player::GetYCoord() { return y_coord_; }
 
 void Player::SetDoubleJumpAbility(bool ability) {
-  is_double_jump_available_ = ability;
+  has_double_jump_ = ability;
+  is_double_jump_available_ = has_double_jump_;
 }
