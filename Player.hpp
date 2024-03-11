@@ -63,9 +63,9 @@ class Player : public AbstractEntity {
   const double kSpeedY = 2;
 
   const double kStaminaCoef = 2;
-  const double kStaminaLoss = 0;
+  const double kStaminaLoss = 0.1;
   const double kStaminaGet = 0.05;
-  const double kTimeToRestoreStamina = 3;
+  const double kTimeToRestoreStamina = 2;
 
   sf::Clock time_from_last_stamina_usage_;
 
