@@ -63,8 +63,8 @@ class Player : public AbstractEntity {
   const double kSpeedY = 2;
 
   const double kStaminaCoef = 2;
-  const double kStaminaLoss = 0.1;
-  const double kStaminaGet = 0.05;
+  const double kStaminaLoss = 0.015;
+  const double kStaminaGet = 0.008;
   const double kTimeToRestoreStamina = 2;
 
   sf::Clock time_from_last_stamina_usage_;
@@ -105,7 +105,7 @@ class Player : public AbstractEntity {
     }
   }
 
-  void UpdateKeys() {
+  void UpdateKeys(double time) {
     //============================== STAY ============================== //
     if (!(keys_["ArrowLeft"]) && !(keys_["ArrowRight"])) {
       if (is_on_ground_) {
@@ -123,7 +123,7 @@ class Player : public AbstractEntity {
         if (keys_["Shift"] && stamina_ > 0) {
           time_from_last_stamina_usage_.restart();
           x_speed_ = (x_speed_ > 0 ? -kSpeedX : kSpeedX) * kStaminaCoef;
-          stamina_ -= kStaminaLoss;
+          stamina_ -= kStaminaLoss * time;
         } else {
           x_speed_ = (x_speed_ > 0 ? -kSpeedX : kSpeedX);
         }
@@ -131,7 +131,7 @@ class Player : public AbstractEntity {
         if (keys_["Shift"] && stamina_ > 0) {
           time_from_last_stamina_usage_.restart();
           x_speed_ = (x_speed_ > 0 ? kSpeedX : -kSpeedX) * kStaminaCoef;
-          stamina_ -= kStaminaLoss;
+          stamina_ -= kStaminaLoss * time;
         }
       }
       if (is_on_ground_) {
@@ -145,7 +145,7 @@ class Player : public AbstractEntity {
       if (keys_["Shift"] && stamina_ > 0) {
         time_from_last_stamina_usage_.restart();
         x_speed_ = -kSpeedX * kStaminaCoef;
-        stamina_ -= kStaminaLoss;
+        stamina_ -= kStaminaLoss * time;
       } else {
         x_speed_ = -kSpeedX;
       }
@@ -159,7 +159,7 @@ class Player : public AbstractEntity {
       if (keys_["Shift"] && stamina_ > 0) {
         time_from_last_stamina_usage_.restart();
         x_speed_ = kSpeedX * kStaminaCoef;
-        stamina_ -= kStaminaLoss;
+        stamina_ -= kStaminaLoss * time;
       } else {
         x_speed_ = kSpeedX;
       }
@@ -192,7 +192,7 @@ class Player : public AbstractEntity {
          (keys_["Shift"] && stamina_ < 100 && x_speed_ == 0))) {
       if (time_from_last_stamina_usage_.getElapsedTime().asSeconds() >=
           kTimeToRestoreStamina) {
-        stamina_ += kStaminaGet;
+        stamina_ += kStaminaGet * time;
       }
     }
   }

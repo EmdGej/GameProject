@@ -16,7 +16,7 @@ Player::Player(double x_coord, double y_coord, int32_t health, int32_t damage,
 }
 
 void Player::UpdatePlayer(AnimationManager& manager, double time) {
-  UpdateKeys();
+  UpdateKeys(time);
   SetState(manager);
 
   if (direction_) {
@@ -39,7 +39,6 @@ void Player::UpdatePlayer(AnimationManager& manager, double time) {
   //###############################################//
 
   manager.UpdateFrame(time);
-
   ResetKeys();
 }
 
