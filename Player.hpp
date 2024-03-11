@@ -54,7 +54,7 @@ class Player : public AbstractEntity {
 
   double acceleration_ = 0;
 
-  bool direction_ = false;      // 0 - left, 1 - right
+  bool direction_ = false;     // 0 - left, 1 - right
   bool both_pressed_ = false;  // 0 - left, 1 - right
 
   double stamina_ = 100;
@@ -63,7 +63,7 @@ class Player : public AbstractEntity {
   const double kSpeedY = 2;
 
   const double kStaminaCoef = 2;
-  const double kStaminaLoss = 0.1;
+  const double kStaminaLoss = 0;
   const double kStaminaGet = 0.05;
   const double kTimeToRestoreStamina = 3;
 
@@ -73,7 +73,7 @@ class Player : public AbstractEntity {
     if (STATE == stay) {
       manager.SetAnimation("stay");
     }
-    
+
     if (STATE == run) {
       manager.SetAnimation("run");
     }
@@ -104,14 +104,14 @@ class Player : public AbstractEntity {
       }
     }
   }
-   
+
   void UpdateKeys() {
     //============================== STAY ============================== //
     if (!(keys_["ArrowLeft"]) && !(keys_["ArrowRight"])) {
       if (is_on_ground_) {
         STATE = stay;
       }
-       
+
       x_speed_ = 0;
     }
 
@@ -122,13 +122,18 @@ class Player : public AbstractEntity {
 
         if (keys_["Shift"] && stamina_ > 0) {
           time_from_last_stamina_usage_.restart();
-          x_speed_ = (x_speed_ > 0 ? -kSpeedX : kSpeedX)  * kStaminaCoef;
+          x_speed_ = (x_speed_ > 0 ? -kSpeedX : kSpeedX) * kStaminaCoef;
           stamina_ -= kStaminaLoss;
         } else {
           x_speed_ = (x_speed_ > 0 ? -kSpeedX : kSpeedX);
         }
+      } else {
+        if (keys_["Shift"] && stamina_ > 0) {
+          time_from_last_stamina_usage_.restart();
+          x_speed_ = (x_speed_ > 0 ? kSpeedX : -kSpeedX) * kStaminaCoef;
+          stamina_ -= kStaminaLoss;
+        }
       }
-
       if (is_on_ground_) {
         STATE = run;
       }
@@ -138,11 +143,11 @@ class Player : public AbstractEntity {
         STATE = run;
       }
       if (keys_["Shift"] && stamina_ > 0) {
-          time_from_last_stamina_usage_.restart();
-          x_speed_ = -kSpeedX * kStaminaCoef;
-          stamina_ -= kStaminaLoss;
+        time_from_last_stamina_usage_.restart();
+        x_speed_ = -kSpeedX * kStaminaCoef;
+        stamina_ -= kStaminaLoss;
       } else {
-          x_speed_ = -kSpeedX;
+        x_speed_ = -kSpeedX;
       }
 
       both_pressed_ = false;
@@ -152,11 +157,11 @@ class Player : public AbstractEntity {
         STATE = run;
       }
       if (keys_["Shift"] && stamina_ > 0) {
-          time_from_last_stamina_usage_.restart();
-          x_speed_ = kSpeedX * kStaminaCoef;
-          stamina_ -= kStaminaLoss;
+        time_from_last_stamina_usage_.restart();
+        x_speed_ = kSpeedX * kStaminaCoef;
+        stamina_ -= kStaminaLoss;
       } else {
-          x_speed_ = kSpeedX;
+        x_speed_ = kSpeedX;
       }
 
       both_pressed_ = false;
@@ -183,8 +188,10 @@ class Player : public AbstractEntity {
       is_shooting_ = false;
     }
 
-    if (((!keys_["Shift"] && stamina_ < 100) || (keys_["Shift"] && stamina_ < 100 && x_speed_ == 0))) {
-      if (time_from_last_stamina_usage_.getElapsedTime().asSeconds() >= kTimeToRestoreStamina) {
+    if (((!keys_["Shift"] && stamina_ < 100) ||
+         (keys_["Shift"] && stamina_ < 100 && x_speed_ == 0))) {
+      if (time_from_last_stamina_usage_.getElapsedTime().asSeconds() >=
+          kTimeToRestoreStamina) {
         stamina_ += kStaminaGet;
       }
     }
@@ -199,8 +206,8 @@ class Player : public AbstractEntity {
   // X - стрельба, Z - прыжок, C - опциональное, Shift - ускоренный бег
   void FillMapWithKeys() {
     std::vector<std::string> keys = {"ArrowLeft", "ArrowLeft", "ArrowUp",
-                                     "ArrowDown", "Space",      "Z",
-                                     "X",         "C",          "Shift"};
+                                     "ArrowDown", "Space",     "Z",
+                                     "X",         "C",         "Shift"};
 
     for (size_t i = 0; i < keys.size(); ++i) {
       keys_[keys[i]] = false;
