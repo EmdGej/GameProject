@@ -35,6 +35,8 @@ void Player::UpdatePlayer(AnimationManager& manager, double time) {
     is_on_ground_ = true;
     STATE = stay;
     y_speed_ = 0;
+
+    is_double_jump_available_ = true;
   }
   //###############################################//
 
@@ -47,3 +49,7 @@ void Player::SetKeys(std::string key, bool flag) { keys_[key] = flag; }
 double Player::GetXCoord() { return x_coord_; }
 
 double Player::GetYCoord() { return y_coord_; }
+
+void Player::SetDoubleJumpAbility(bool ability) {
+  is_double_jump_available_ = ability;
+}

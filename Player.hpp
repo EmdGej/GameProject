@@ -48,6 +48,8 @@ class Player : public AbstractEntity {
 
   double GetYCoord();
 
+  void SetDoubleJumpAbility(bool ability);
+
  private:
   enum { stay, run, jump, slide, climb } STATE;
   std::unordered_map<std::string, bool> keys_;
@@ -57,17 +59,19 @@ class Player : public AbstractEntity {
   bool direction_ = false;     // 0 - left, 1 - right
   bool both_pressed_ = false;  // 0 - left, 1 - right
 
-  double stamina_ = 100;
-
   const double kSpeedX = 0.2;
   const double kSpeedY = 2;
 
+  double stamina_ = 100;
   const double kStaminaCoef = 2;
   const double kStaminaLoss = 0.015;
   const double kStaminaGet = 0.008;
   const double kTimeToRestoreStamina = 2;
 
   sf::Clock time_from_last_stamina_usage_;
+
+  bool is_double_jump_available_ = false;
+  bool was_jump_pressed_ = false;
 
   void SetState(AnimationManager& manager) {
     if (STATE == stay) {
@@ -169,6 +173,14 @@ class Player : public AbstractEntity {
     }
 
     //============================== JUMP ============================== //
+    if (keys_["Z"] && is_double_jump_available_) {
+      if (STATE == jump && !was_jump_pressed_) {
+        y_speed_ = -kSpeedY;
+        is_double_jump_available_ = false;
+        is_on_ground_ = false;
+      }
+    }
+    
     if (keys_["Z"]) {
       if (STATE == stay || STATE == run || STATE == slide || STATE == climb) {
         STATE = jump;
@@ -176,6 +188,7 @@ class Player : public AbstractEntity {
         y_speed_ = -kSpeedY;
 
         is_on_ground_ = false;
+        was_jump_pressed_ = true;
       }
     }
 
@@ -186,6 +199,10 @@ class Player : public AbstractEntity {
 
     if (!keys_["X"]) {
       is_shooting_ = false;
+    }
+
+    if(!keys_["Z"]) {
+      was_jump_pressed_ = false;
     }
 
     if (((!keys_["Shift"] && stamina_ < 100) ||
