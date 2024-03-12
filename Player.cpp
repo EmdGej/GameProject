@@ -8,14 +8,14 @@ Player::Player(double x_coord, double y_coord, int32_t health, int32_t damage,
   damage_ = damage;
 
   acceleration_ = acceleration;
-  is_on_ground_ = true;
+  is_on_ground_ = false;
 
   STATE = stay;
 
   FillMapWithKeys();
 }
 
-void Player::UpdatePlayer(AnimationManager& manager, double time) {
+void Player::UpdatePlayer(AnimationManager& manager, const MapParams& params, double time) {
   UpdateKeys(time);
   SetState(manager);
 
@@ -25,19 +25,23 @@ void Player::UpdatePlayer(AnimationManager& manager, double time) {
     manager.SetFlip(false);
   }
 
-  y_speed_ += (!is_on_ground_) * acceleration_ * time;
-
   x_coord_ += x_speed_ * time;
+  CollisionX(params, manager);
+
+  y_speed_ += (!is_on_ground_) * acceleration_ * time;
   y_coord_ += y_speed_ * time;
+  is_on_ground_ = false;
+  CollisionY(params, manager);
+   
 
   //###############################################// // to check jump ability
-  if (y_coord_ >= 400 + 200 && !is_on_ground_) {
-    is_on_ground_ = true;
-    STATE = stay;
-    y_speed_ = 0;
+  // if (y_coord_ >= 400 + 200 && !is_on_ground_) {
+  //   is_on_ground_ = true;
+  //   STATE = stay;
+  //   y_speed_ = 0;
 
-    is_double_jump_available_ = has_double_jump_;
-  }
+  //   is_double_jump_available_ = has_double_jump_;
+  // }
   //###############################################//
 
   manager.UpdateFrame(time);
@@ -46,9 +50,9 @@ void Player::UpdatePlayer(AnimationManager& manager, double time) {
 
 void Player::SetKeys(std::string key, bool flag) { keys_[key] = flag; }
 
-double Player::GetXCoord() { return x_coord_; }
+double Player::GetXCoord() const { return x_coord_; }
 
-double Player::GetYCoord() { return y_coord_; }
+double Player::GetYCoord() const { return y_coord_; }
 
 void Player::SetDoubleJumpAbility(bool ability) {
   has_double_jump_ = ability;
@@ -62,5 +66,5 @@ void Player::SetStaminaLoss(double value) { kStaminaLoss = value; }
 void Player::SetStaminaGet(double value) { kStaminaGet = value; }
 void Player::SetTimeToRestoreStamina(double value) { kTimeToRestoreStamina = value; }
 
-int32_t Player::GetAnimationHeight() { return manager_.GetAnimationHeight(); }
-int32_t Player::GetAnimationWidth() { return manager_.GetAnimationWidth(); }
+int32_t Player::GetAnimationHeight(AnimationManager& manager) const { return manager.GetAnimationHeight(); }
+int32_t Player::GetAnimationWidth(AnimationManager& manager) const { return manager.GetAnimationWidth(); }

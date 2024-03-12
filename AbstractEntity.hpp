@@ -21,8 +21,6 @@ class AbstractEntity {
   bool is_hitted_ = false;
 
   int32_t health_ = 100;
-
-  AnimationManager manager_;
 };
 
 #endif
