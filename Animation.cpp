@@ -33,7 +33,6 @@ void Animation::UpdateFrame(double time) {
   }
 
   sprite_.setTexture(textures_[static_cast<int32_t>(current_frame_)], true);
-  sprite_.setTextureRect(sf::IntRect(0, 0, 40, 40));
   sprite_.setScale(scale_, scale_);
   if (flip_) {
     sprite_.setTextureRect(frames_flip_[static_cast<int32_t>(current_frame_)]);
