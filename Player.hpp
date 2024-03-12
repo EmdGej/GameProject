@@ -111,15 +111,15 @@ class Player : public AbstractEntity {
 
     if (is_shooting_) {
       if (STATE == stay) {
-        manager.SetAnimation("stay");
+        manager.SetAnimation("stay_shoot");
       }
 
       if (STATE == run) {
-        manager.SetAnimation("run");
+        manager.SetAnimation("run_shoot");
       }
 
       if (STATE == jump) {
-        manager.SetAnimation("jump");
+        manager.SetAnimation("jump_shoot");
       }
     }
   }
