@@ -35,11 +35,9 @@ left, 1 - right - направление движения игрока const dou
 
   FillMapWithKeys - заполняет map используемыми кнопками
 */
-
-#include <iostream>
-
 #include "AbstractEntity.hpp"
 #include "MapLoader.hpp"
+#include <unordered_set>
 
 const double kLoadTime = 100;
 class Player : public AbstractEntity {
