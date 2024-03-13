@@ -19,6 +19,8 @@ class BulletManager {
                          const std::unordered_set<char>& blocks, double time, 
                          double offsetX, double offsetY);
 
+  const std::list<Bullet*>& GetBulletsList();
+
  private:
   std::list<Bullet*> bullets_;
 };

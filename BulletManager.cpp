@@ -38,3 +38,7 @@ void BulletManager::UpdateDrawBullets(sf::RenderWindow& window,
     (*it)->DrawBullet(window, offsetX, offsetY);
   }
 }
+
+const std::list<Bullet*>& BulletManager::GetBulletsList() {
+  return bullets_;
+}
