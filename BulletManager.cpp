@@ -31,9 +31,10 @@ void BulletManager::CheckLifeBullets() {
 void BulletManager::UpdateDrawBullets(sf::RenderWindow& window,
                                       const MapParams& map_params,
                                       const std::unordered_set<char>& blocks,
-                                      double time) {
+                                      double time, double offsetX, 
+                                      double offsetY) {
   for (auto it = bullets_.begin(); it != bullets_.end(); it++) {
     (*it)->UpdateBullet(map_params, blocks, time);
-    (*it)->DrawBullet(window);
+    (*it)->DrawBullet(window, offsetX, offsetY);
   }
 }

@@ -17,8 +17,8 @@ void Bullet::UpdateBullet(const MapParams& map_params, const std::unordered_set<
   manager_.UpdateFrame(time);
 }
 
-void Bullet::DrawBullet(sf::RenderWindow& window) {
-  manager_.Draw(window, x_coord_, y_coord_);
+void Bullet::DrawBullet(sf::RenderWindow& window, double offsetX, double offsetY) {
+  manager_.Draw(window, x_coord_ - offsetX, y_coord_ - offsetY);
 }
 
 double Bullet::GetXCoord() const { return x_coord_; }

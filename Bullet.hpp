@@ -14,7 +14,7 @@ class Bullet {
   void UpdateBullet(const MapParams& map_params,
                     const std::unordered_set<char>& blocks, double time);
 
-  void DrawBullet(sf::RenderWindow& window);
+  void DrawBullet(sf::RenderWindow& window, double offsetX, double offsetY);
 
   double GetXCoord() const;
   double GetYCoord() const;

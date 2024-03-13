@@ -49,7 +49,7 @@ class Player : public AbstractEntity {
                     double time);
   void SetKeys(std::string key, bool flag);
 
-  void DrawPlayer(sf::RenderWindow& window);
+  void DrawPlayer(sf::RenderWindow& window, double offsetX, double offsetY);
  
   double GetXCoord() const;
   double GetYCoord() const;

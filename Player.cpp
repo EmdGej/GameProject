@@ -45,8 +45,8 @@ void Player::UpdatePlayer(const MapParams& params, const std::unordered_set<char
   ResetKeys();
 }
 
-void Player::DrawPlayer(sf::RenderWindow& window) {
-  manager_.Draw(window, x_coord_, y_coord_);
+void Player::DrawPlayer(sf::RenderWindow& window, double offsetX, double offsetY) {
+  manager_.Draw(window, x_coord_ - offsetX, y_coord_ - offsetY);
 }
 
 void Player::SetKeys(std::string key, bool flag) { keys_[key] = flag; }
