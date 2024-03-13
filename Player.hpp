@@ -44,13 +44,15 @@ left, 1 - right - направление движения игрока const dou
 const double kLoadTime = 100;
 class Player : public AbstractEntity {
  public:
-  Player(double x_coord, double y_coord, int32_t health, int32_t damage,
+  Player(AnimationManager manager, double x_coord, double y_coord, int32_t health, int32_t damage,
          double acceleration = 0.005);
 
-  void UpdatePlayer(AnimationManager& manager, const MapParams& params,
+  void UpdatePlayer(const MapParams& params,
                     double time);
   void SetKeys(std::string key, bool flag);
 
+  void DrawPlayer(sf::RenderWindow& window);
+ 
   double GetXCoord() const;
   double GetYCoord() const;
 
@@ -86,8 +88,8 @@ class Player : public AbstractEntity {
 
   void SetDoubleJumpAbility(bool ability);
 
-  int32_t GetAnimationWidth(AnimationManager& manager) const;
-  int32_t GetAnimationHeight(AnimationManager& manager) const;
+  int32_t GetAnimationWidth();
+  int32_t GetAnimationHeight();
 
  private:
   enum { stay, run, jump, die, climb } STATE;
@@ -113,38 +115,40 @@ class Player : public AbstractEntity {
   bool was_jump_pressed_ = false;
   bool has_double_jump_ = false;
 
-  void SetState(AnimationManager& manager) {
+  AnimationManager manager_;
+
+  void SetState() {
     if (STATE == stay) {
-      manager.SetAnimation("stay");
+      manager_.SetAnimation("stay");
     }
 
     if (STATE == run) {
-      manager.SetAnimation("run");
+      manager_.SetAnimation("run");
     }
 
     if (STATE == jump) {
-      manager.SetAnimation("jump");
+      manager_.SetAnimation("jump");
     }
 
     if (STATE == die) {
-      manager.SetAnimation("die");
+      manager_.SetAnimation("die");
     }
 
     if (STATE == climb) {
-      manager.SetAnimation("climb");
+      manager_.SetAnimation("climb");
     }
 
     if (is_shooting_) {
       if (STATE == stay) {
-        manager.SetAnimation("stay_shoot");
+        manager_.SetAnimation("stay_shoot");
       }
 
       if (STATE == run) {
-        manager.SetAnimation("run_shoot");
+        manager_.SetAnimation("run_shoot");
       }
 
       if (STATE == jump) {
-        manager.SetAnimation("jump_shoot");
+        manager_.SetAnimation("jump_shoot");
       }
     }
   }
@@ -258,16 +262,16 @@ class Player : public AbstractEntity {
     }
   }
 
-  void CollisionX(const MapParams& params, AnimationManager& manager) {
+  void CollisionX(const MapParams& params) {
     for (int32_t i = y_coord_ / params.tile_size;
-         i < (y_coord_ + manager.GetAnimationHeight()) / params.tile_size;
+         i < (y_coord_ + manager_.GetAnimationHeight()) / params.tile_size;
          ++i) {
       for (int32_t j = x_coord_ / params.tile_size;
-           j < (x_coord_ + manager.GetAnimationWidth()) / params.tile_size;
+           j < (x_coord_ + manager_.GetAnimationWidth()) / params.tile_size;
            ++j) {
         if (params.map[i][j] == 'B' || params.map[i][j] == 'F') {
           if (direction_) {
-            x_coord_ = j * params.tile_size - manager.GetAnimationWidth();
+            x_coord_ = j * params.tile_size - manager_.GetAnimationWidth();
           }
           if (!direction_) {
             x_coord_ = j * params.tile_size + params.tile_size;
@@ -277,16 +281,16 @@ class Player : public AbstractEntity {
     }
   }
 
-  void CollisionY(const MapParams& params, AnimationManager& manager) {
+  void CollisionY(const MapParams& params) {
     for (int32_t i = y_coord_ / params.tile_size;
-         i < (y_coord_ + manager.GetAnimationHeight()) / params.tile_size;
+         i < (y_coord_ + manager_.GetAnimationHeight()) / params.tile_size;
          ++i) {
       for (int32_t j = x_coord_ / params.tile_size;
-           j < (x_coord_ + manager.GetAnimationWidth()) / params.tile_size;
+           j < (x_coord_ + manager_.GetAnimationWidth()) / params.tile_size;
            ++j) {
         if (params.map[i][j] == 'B' || params.map[i][j] == 'F') {
           if (y_speed_ > 0) {
-            y_coord_ = i * params.tile_size - manager.GetAnimationHeight();
+            y_coord_ = i * params.tile_size - manager_.GetAnimationHeight();
             y_speed_ = 0;
             is_on_ground_ = true;
             is_double_jump_available_ = has_double_jump_;

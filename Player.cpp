@@ -1,11 +1,13 @@
 #include "Player.hpp"
 
-Player::Player(double x_coord, double y_coord, int32_t health, int32_t damage,
+Player::Player(AnimationManager manager, double x_coord, double y_coord, int32_t health, int32_t damage,
                double acceleration) {
   x_coord_ = x_coord;
   y_coord_ = y_coord;
   health_ = health;
   damage_ = damage;
+
+  manager_ = manager;
 
   acceleration_ = acceleration;
   is_on_ground_ = false;
@@ -15,31 +17,35 @@ Player::Player(double x_coord, double y_coord, int32_t health, int32_t damage,
   FillMapWithKeys();
 }
 
-void Player::UpdatePlayer(AnimationManager& manager, const MapParams& params,
+void Player::UpdatePlayer(const MapParams& params,
                           double time) {
   if (time > kLoadTime) {
     return;
   }
 
   UpdateKeys(time);
-  SetState(manager);
+  SetState();
 
   if (direction_) {
-    manager.SetFlip(true);
+    manager_.SetFlip(true);
   } else {
-    manager.SetFlip(false);
+    manager_.SetFlip(false);
   }
 
   x_coord_ += x_speed_ * time;
-  CollisionX(params, manager);
+  CollisionX(params);
 
   y_speed_ += (!is_on_ground_) * acceleration_ * time;
   y_coord_ += y_speed_ * time;
   is_on_ground_ = false;
-  CollisionY(params, manager);
+  CollisionY(params);
 
-  manager.UpdateFrame(time);
+  manager_.UpdateFrame(time);
   ResetKeys();
+}
+
+void Player::DrawPlayer(sf::RenderWindow& window) {
+  manager_.Draw(window, x_coord_, y_coord_);
 }
 
 void Player::SetKeys(std::string key, bool flag) { keys_[key] = flag; }
@@ -61,13 +67,14 @@ double Player::GetCurYSpeed() const { return y_speed_; }
 bool Player::GetDirection() const { return direction_; }
 bool Player::GetIsOnGround() const { return is_on_ground_; }
 
-int32_t Player::GetAnimationHeight(AnimationManager& manager) const {
-  return manager.GetAnimationHeight();
-}
-int32_t Player::GetAnimationWidth(AnimationManager& manager) const {
-  return manager.GetAnimationWidth();
+int32_t Player::GetAnimationHeight() {
+  return manager_.GetAnimationHeight();
 }
 
+int32_t Player::GetAnimationWidth() {
+  return manager_.GetAnimationWidth();
+}
+  
 void Player::SetDoubleJumpAbility(bool ability) {
   has_double_jump_ = ability;
   is_double_jump_available_ = has_double_jump_;
