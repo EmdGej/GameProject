@@ -7,7 +7,7 @@ void BulletManager::AddBullet(AnimationManager manager, double bullet_speed,
   if (player_health <= 0) {
     return;
   }
-  
+
   if (player_direction) {
     bullets_.push_back(new Bullet(manager, player_x + player_width,
                                   player_y + player_height / 2, bullet_speed,
@@ -43,6 +43,6 @@ void BulletManager::UpdateDrawBullets(sf::RenderWindow& window,
   }
 }
 
-const std::list<Bullet*>& BulletManager::GetBulletsList() {
+std::list<Bullet*>& BulletManager::GetBulletsList() {
   return bullets_;
 }
