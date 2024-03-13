@@ -36,28 +36,53 @@ left, 1 - right - направление движения игрока const dou
   FillMapWithKeys - заполняет map используемыми кнопками
 */
 
+#include <iostream>
+
 #include "AbstractEntity.hpp"
 #include "MapLoader.hpp"
-#include <iostream>
+
+const double kLoadTime = 100;
 class Player : public AbstractEntity {
  public:
   Player(double x_coord, double y_coord, int32_t health, int32_t damage,
          double acceleration = 0.005);
 
-  void UpdatePlayer(AnimationManager& manager, const MapParams& params, double time);
-
+  void UpdatePlayer(AnimationManager& manager, const MapParams& params,
+                    double time);
   void SetKeys(std::string key, bool flag);
 
   double GetXCoord() const;
-
   double GetYCoord() const;
+
+  double GetXSpeed() const;
+  double GetYSpeed() const;
+
+  double GetCurXSpeed() const;
+  double GetCurYSpeed() const;
+
+  double GetStaminaCoef() const;
+  double GetStaminaLoss() const;
+  double GetStaminaGet() const;
+  double GetTimeToRestoreStamina() const;
+
+  bool GetIsOnGround() const;
+  bool GetDirection() const;
 
   void SetSpeedX(double value);
   void SetSpeedY(double value);
+
   void SetStaminaCoef(double value);
   void SetStaminaLoss(double value);
   void SetStaminaGet(double value);
   void SetTimeToRestoreStamina(double value);
+
+  void SetIsOnGround(bool flag);
+
+  void SetXCoord(double coord);
+  void SetYCoord(double coord);
+
+  void SetCurXSpeed(double value);
+  void SetCurYSpeed(double value);
 
   void SetDoubleJumpAbility(bool ability);
 
@@ -191,7 +216,7 @@ class Player : public AbstractEntity {
         is_on_ground_ = false;
       }
     }
-    
+
     if (keys_["Z"]) {
       if (STATE == stay || STATE == run || STATE == climb) {
         STATE = jump;
@@ -212,7 +237,7 @@ class Player : public AbstractEntity {
       is_shooting_ = false;
     }
 
-    if(!keys_["Z"]) {
+    if (!keys_["Z"]) {
       was_jump_pressed_ = false;
     }
 
@@ -233,16 +258,18 @@ class Player : public AbstractEntity {
     }
   }
 
-   
-
   void CollisionX(const MapParams& params, AnimationManager& manager) {
-    for(int32_t i = y_coord_ / params.tile_size; i < (y_coord_ + manager.GetAnimationHeight()) / params.tile_size; ++i) {
-      for(int32_t j = x_coord_ / params.tile_size; j < (x_coord_ + manager.GetAnimationWidth()) / params.tile_size; ++j) {
-        if(params.map[i][j] == 'B' || params.map[i][j] == 'F') {
-          if(direction_) {
+    for (int32_t i = y_coord_ / params.tile_size;
+         i < (y_coord_ + manager.GetAnimationHeight()) / params.tile_size;
+         ++i) {
+      for (int32_t j = x_coord_ / params.tile_size;
+           j < (x_coord_ + manager.GetAnimationWidth()) / params.tile_size;
+           ++j) {
+        if (params.map[i][j] == 'B' || params.map[i][j] == 'F') {
+          if (direction_) {
             x_coord_ = j * params.tile_size - manager.GetAnimationWidth();
-          } 
-          if(!direction_) {  
+          }
+          if (!direction_) {
             x_coord_ = j * params.tile_size + params.tile_size;
           }
         }
@@ -251,29 +278,30 @@ class Player : public AbstractEntity {
   }
 
   void CollisionY(const MapParams& params, AnimationManager& manager) {
-    for(int32_t i = y_coord_ / params.tile_size; i < (y_coord_ + manager.GetAnimationHeight()) / params.tile_size; ++i) {
-      for(int32_t j = x_coord_ / params.tile_size; j < (x_coord_ + manager.GetAnimationWidth()) / params.tile_size; ++j) {
-        if(params.map[i][j] == 'B' || params.map[i][j] == 'F') {
-          if(y_speed_ > 0) {
+    for (int32_t i = y_coord_ / params.tile_size;
+         i < (y_coord_ + manager.GetAnimationHeight()) / params.tile_size;
+         ++i) {
+      for (int32_t j = x_coord_ / params.tile_size;
+           j < (x_coord_ + manager.GetAnimationWidth()) / params.tile_size;
+           ++j) {
+        if (params.map[i][j] == 'B' || params.map[i][j] == 'F') {
+          if (y_speed_ > 0) {
             y_coord_ = i * params.tile_size - manager.GetAnimationHeight();
             y_speed_ = 0;
             is_on_ground_ = true;
             is_double_jump_available_ = has_double_jump_;
 
             STATE = stay;
-          } 
+          }
 
-          if(y_speed_ < 0) {
+          if (y_speed_ < 0) {
             y_coord_ = i * params.tile_size + params.tile_size;
-            y_speed_ = 0;  
+            y_speed_ = 0;
           }
         }
       }
     }
   }
-
-
-
 
   void ResetKeys() {
     for (auto& key_state : keys_) {
