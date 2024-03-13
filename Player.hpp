@@ -65,6 +65,8 @@ class Player : public AbstractEntity {
   double GetStaminaGet() const;
   double GetTimeToRestoreStamina() const;
 
+  int32_t GetHealth() const;
+
   bool GetIsOnGround() const;
   bool GetDirection() const;
 

@@ -3,7 +3,11 @@
 void BulletManager::AddBullet(AnimationManager manager, double bullet_speed,
                               bool player_direction, double player_x,
                               double player_y, double player_width,
-                              double player_height) {
+                              double player_height, int32_t player_health) {
+  if (player_health <= 0) {
+    return;
+  }
+  
   if (player_direction) {
     bullets_.push_back(new Bullet(manager, player_x + player_width,
                                   player_y + player_height / 2, bullet_speed,

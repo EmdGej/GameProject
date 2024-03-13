@@ -11,7 +11,7 @@ class BulletManager {
  public:
   void AddBullet(AnimationManager manager, double bullet_speed,
                  bool player_direction, double player_x, double player_y,
-                 double player_width, double player_height);
+                 double player_width, double player_height, int32_t player_health);
 
   void CheckLifeBullets();
 

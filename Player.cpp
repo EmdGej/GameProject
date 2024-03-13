@@ -28,12 +28,13 @@ void Player::UpdatePlayer(const MapParams& params, const std::unordered_set<char
 
   if (health_ <= 0) {
     manager_.UpdateFrame(time);
+    
     return;
   }
 
   UpdateKeys(time);
   SetState();
-  
+
   if (direction_) {
     manager_.SetFlip(true);
   } else {
@@ -74,6 +75,8 @@ double Player::GetCurYSpeed() const { return y_speed_; }
 
 bool Player::GetDirection() const { return direction_; }
 bool Player::GetIsOnGround() const { return is_on_ground_; }
+
+int32_t Player::GetHealth() const { return health_; }
 
 int32_t Player::GetAnimationHeight() {
   return manager_.GetAnimationHeight();
