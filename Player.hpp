@@ -38,7 +38,7 @@ left, 1 - right - направление движения игрока const dou
 
 #include "AbstractEntity.hpp"
 #include "MapLoader.hpp"
-
+#include <iostream>
 class Player : public AbstractEntity {
  public:
   Player(double x_coord, double y_coord, int32_t health, int32_t damage,
@@ -239,10 +239,10 @@ class Player : public AbstractEntity {
     for(int32_t i = y_coord_ / params.tile_size; i < (y_coord_ + manager.GetAnimationHeight()) / params.tile_size; ++i) {
       for(int32_t j = x_coord_ / params.tile_size; j < (x_coord_ + manager.GetAnimationWidth()) / params.tile_size; ++j) {
         if(params.map[i][j] == 'B' || params.map[i][j] == 'F') {
-          if(x_speed_ > 0) {
+          if(direction_) {
             x_coord_ = j * params.tile_size - manager.GetAnimationWidth();
           } 
-          if(x_speed_ < 0) {  
+          if(!direction_) {  
             x_coord_ = j * params.tile_size + params.tile_size;
           }
         }
