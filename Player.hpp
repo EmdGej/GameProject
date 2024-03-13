@@ -46,7 +46,7 @@ class Player : public AbstractEntity {
          double acceleration = 0.005);
 
   void UpdatePlayer(const MapParams& params, const std::unordered_set<char>& blocks,
-                    double time);
+                    const std::unordered_set<char>& die_blocks, double time);
   void SetKeys(std::string key, bool flag);
 
   void DrawPlayer(sf::RenderWindow& window, double offsetX, double offsetY);
@@ -83,6 +83,8 @@ class Player : public AbstractEntity {
 
   void SetCurXSpeed(double value);
   void SetCurYSpeed(double value);
+
+  void SetAcceleration(double value);
 
   void SetDoubleJumpAbility(bool ability);
 
@@ -300,6 +302,27 @@ class Player : public AbstractEntity {
             y_coord_ = i * params.tile_size + params.tile_size;
             y_speed_ = 0;
           }
+        }
+      }
+    }
+  }
+
+  void CheckDie(const MapParams& params, const std::unordered_set<char>& die_blocks) {
+    for (int32_t i = y_coord_ / params.tile_size;
+         i < (y_coord_ + manager_.GetAnimationHeight()) / params.tile_size;
+         ++i) {
+      for (int32_t j = x_coord_ / params.tile_size;
+           j < (x_coord_ + manager_.GetAnimationWidth()) / params.tile_size;
+           ++j) {
+        if (die_blocks.find(params.map[i][j]) != die_blocks.end()) {
+          STATE = die;
+          health_ = 0;
+          
+          x_speed_ = 0;
+          y_speed_ = 0;
+
+          manager_.SetAnimation("killed_lay");
+          y_coord_ = i * params.tile_size;       ;
         }
       }
     }

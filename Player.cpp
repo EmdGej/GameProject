@@ -19,14 +19,21 @@ Player::Player(AnimationManager manager, double x_coord, double y_coord, int32_t
 }
 
 void Player::UpdatePlayer(const MapParams& params, const std::unordered_set<char>& blocks,
-                          double time) {
+                          const std::unordered_set<char>& die_blocks, double time) {
   if (time > kLoadTime) {
+    return;
+  }
+
+  CheckDie(params, die_blocks);
+
+  if (health_ <= 0) {
+    manager_.UpdateFrame(time);
     return;
   }
 
   UpdateKeys(time);
   SetState();
-
+  
   if (direction_) {
     manager_.SetFlip(true);
   } else {
@@ -98,3 +105,5 @@ void Player::SetYCoord(double coord) { y_coord_ = coord; }
 
 void Player::SetCurXSpeed(double value) { x_speed_ = value; }
 void Player::SetCurYSpeed(double value) { y_speed_ = value; }
+
+void Player::SetAcceleration(double value) { acceleration_ = value; }
