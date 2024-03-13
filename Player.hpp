@@ -47,7 +47,7 @@ class Player : public AbstractEntity {
   Player(AnimationManager manager, double x_coord, double y_coord, int32_t health, int32_t damage,
          double acceleration = 0.005);
 
-  void UpdatePlayer(const MapParams& params,
+  void UpdatePlayer(const MapParams& params, const std::unordered_set<char>& blocks,
                     double time);
   void SetKeys(std::string key, bool flag);
 
@@ -262,14 +262,14 @@ class Player : public AbstractEntity {
     }
   }
 
-  void CollisionX(const MapParams& params) {
+  void CollisionX(const MapParams& params, const std::unordered_set<char>& blocks) {
     for (int32_t i = y_coord_ / params.tile_size;
          i < (y_coord_ + manager_.GetAnimationHeight()) / params.tile_size;
          ++i) {
       for (int32_t j = x_coord_ / params.tile_size;
            j < (x_coord_ + manager_.GetAnimationWidth()) / params.tile_size;
            ++j) {
-        if (params.map[i][j] == 'B' || params.map[i][j] == 'F') {
+        if (blocks.find(params.map[i][j]) != blocks.end()) {
           if (direction_) {
             x_coord_ = j * params.tile_size - manager_.GetAnimationWidth();
           }
@@ -281,14 +281,14 @@ class Player : public AbstractEntity {
     }
   }
 
-  void CollisionY(const MapParams& params) {
+  void CollisionY(const MapParams& params, const std::unordered_set<char>& blocks) {
     for (int32_t i = y_coord_ / params.tile_size;
          i < (y_coord_ + manager_.GetAnimationHeight()) / params.tile_size;
          ++i) {
       for (int32_t j = x_coord_ / params.tile_size;
            j < (x_coord_ + manager_.GetAnimationWidth()) / params.tile_size;
            ++j) {
-        if (params.map[i][j] == 'B' || params.map[i][j] == 'F') {
+        if (blocks.find(params.map[i][j]) != blocks.end()) {
           if (y_speed_ > 0) {
             y_coord_ = i * params.tile_size - manager_.GetAnimationHeight();
             y_speed_ = 0;
