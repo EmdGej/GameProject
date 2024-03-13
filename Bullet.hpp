@@ -19,6 +19,9 @@ class Bullet {
   double GetXCoord() const;
   double GetYCoord() const;
 
+  double GetBulletWidth();
+  double GetBulletHeight();
+
   double GetXSpeed() const;
   bool GetIsAlive() const;
 

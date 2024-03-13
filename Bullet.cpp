@@ -27,4 +27,8 @@ double Bullet::GetYCoord() const { return y_coord_; }
 double Bullet::GetXSpeed() const { return x_speed_; }
 bool Bullet::GetIsAlive() const {return is_alive_; }
 
+double Bullet::GetBulletWidth() { return manager_.GetAnimationWidth(); }
+double Bullet::GetBulletHeight() { return manager_.GetAnimationHeight(); }
+
+
 void Bullet::SetXSpeed(double value) { x_speed_ = value; }
