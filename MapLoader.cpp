@@ -26,6 +26,10 @@ void MapLoader::DrawMap(sf::RenderWindow& window, double offsetX,
 
   for (int32_t i = 0; i < draw_map.height; ++i) {
     for (int32_t j = 0; j < draw_map.width; ++j) {
+      if (draw_map.map[i][j] == ' ') {
+        continue;
+      }
+      
       draw_map.rectangle.setTexture(draw_map.tiles[draw_map.map[i][j]]);
 
       draw_map.rectangle.setPosition(j * draw_map.tile_size - offsetX,
