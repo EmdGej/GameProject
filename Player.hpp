@@ -135,7 +135,7 @@ class Player : public AbstractEntity {
     }
 
     if (STATE == die) {
-      manager_.SetAnimation("die");
+      manager_.SetAnimation("killed_lay");
     }
 
     if (STATE == climb) {
@@ -328,10 +328,10 @@ class Player : public AbstractEntity {
           health_ = 0;
           
           x_speed_ = 0;
-          y_speed_ = 0;
+          //y_speed_ = 0;
 
-          manager_.SetAnimation("killed_lay");
-          y_coord_ = i * params.tile_size - GetAnimationHeight() / 2;
+          //manager_.SetAnimation("killed_lay");
+          //y_coord_ = i * params.tile_size - GetAnimationHeight() / 2;
         }
       }
     }

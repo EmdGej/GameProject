@@ -24,20 +24,11 @@ void Player::UpdatePlayer(const MapParams& params, const std::unordered_set<char
     return;
   }
 
-  CheckDie(params, die_blocks);
-
   if (health_ <= 0) {
-    if (direction_) {
-      manager_.SetFlip(true);
-    } else {
-      manager_.SetFlip(false);
-    }
-
-    manager_.SetAnimation("killed_lay");
-    manager_.UpdateFrame(time);
-    
-    return;
+    x_speed_ = 0;
   }
+  
+  CheckDie(params, die_blocks);
 
   UpdateKeys(time);
   SetState();
