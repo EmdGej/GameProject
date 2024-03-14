@@ -27,6 +27,7 @@ void Player::UpdatePlayer(const MapParams& params, const std::unordered_set<char
   CheckDie(params, die_blocks);
 
   if (health_ <= 0) {
+    manager_.SetAnimation("killed_lay");
     manager_.UpdateFrame(time);
     
     return;
@@ -110,3 +111,5 @@ void Player::SetCurXSpeed(double value) { x_speed_ = value; }
 void Player::SetCurYSpeed(double value) { y_speed_ = value; }
 
 void Player::SetAcceleration(double value) { acceleration_ = value; }
+
+void Player::SetHealth(int32_t value) { health_ = value; }

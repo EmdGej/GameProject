@@ -161,6 +161,7 @@ class Player : public AbstractEntity {
       STATE = die;
       return;
     }
+    
     //============================== RUN ============================== //
     if (keys_["ArrowLeft"] && keys_["ArrowRight"]) {
       if (!both_pressed_) {
