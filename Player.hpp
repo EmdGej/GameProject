@@ -275,11 +275,13 @@ class Player : public AbstractEntity {
            j < (x_coord_ + manager_.GetAnimationWidth()) / params.tile_size;
            ++j) {
         if (blocks.find(params.map[i][j]) != blocks.end()) {
-          if (direction_) {
+          if (direction_ && j + 1 >= (x_coord_ + manager_.GetAnimationWidth()) / params.tile_size) {
             x_coord_ = j * params.tile_size - manager_.GetAnimationWidth();
+            return;
           }
-          if (!direction_) {
+          if (!direction_ && j == int(x_coord_ / params.tile_size)) {
             x_coord_ = j * params.tile_size + params.tile_size;
+            return;
           }
         }
       }
@@ -294,18 +296,20 @@ class Player : public AbstractEntity {
            j < (x_coord_ + manager_.GetAnimationWidth()) / params.tile_size;
            ++j) {
         if (blocks.find(params.map[i][j]) != blocks.end()) {
-          if (y_speed_ > 0) {
+          if (y_speed_ > 0 &&  i + 1 >= (y_coord_ + manager_.GetAnimationHeight()) / params.tile_size) {
             y_coord_ = i * params.tile_size - manager_.GetAnimationHeight();
             y_speed_ = 0;
             is_on_ground_ = true;
             is_double_jump_available_ = has_double_jump_;
 
             STATE = stay;
+            return;
           }
 
-          if (y_speed_ < 0) {
+          if (y_speed_ < 0 && i == int(y_coord_ / params.tile_size)) {
             y_coord_ = i * params.tile_size + params.tile_size;
             y_speed_ = 0;
+            return;
           }
         }
       }
@@ -327,7 +331,7 @@ class Player : public AbstractEntity {
           y_speed_ = 0;
 
           manager_.SetAnimation("killed_lay");
-          y_coord_ = i * params.tile_size - GetAnimationHeight() / 2;       ;
+          y_coord_ = i * params.tile_size - GetAnimationHeight() / 2;
         }
       }
     }
