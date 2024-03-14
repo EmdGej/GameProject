@@ -90,6 +90,8 @@ class Player : public AbstractEntity {
 
   void SetDoubleJumpAbility(bool ability);
 
+  void SetHealth(int32_t value);
+
   int32_t GetAnimationWidth();
   int32_t GetAnimationHeight();
 
