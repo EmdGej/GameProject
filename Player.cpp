@@ -32,7 +32,7 @@ void Player::UpdatePlayer(const MapParams& params, const std::unordered_set<char
     } else {
       manager_.SetFlip(false);
     }
-    
+
     manager_.SetAnimation("killed_lay");
     manager_.UpdateFrame(time);
     
