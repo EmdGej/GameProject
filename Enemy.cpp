@@ -14,9 +14,9 @@ Enemy::Enemy(AnimationManager manager, double x_coord, double y_coord,
 void Enemy::UpdateEnemy(double time, std::list<Bullet*>* bullets) {
   if (is_alive_) {
     CheckBullets(bullets);
-    manager_.SetAnimation("run");
+    manager_.SetAnimation("xeno-grunt-run");
   } else {
-    manager_.SetAnimation("killed_lay");
+    manager_.SetAnimation("xeno-grunt-death-grounded");
     x_speed_ = 0;
     manager_.UpdateFrame(time);
     return;
