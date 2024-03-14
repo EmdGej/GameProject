@@ -327,7 +327,7 @@ class Player : public AbstractEntity {
           y_speed_ = 0;
 
           manager_.SetAnimation("killed_lay");
-          y_coord_ = i * params.tile_size;       ;
+          y_coord_ = i * params.tile_size - GetAnimationHeight() / 2;       ;
         }
       }
     }
