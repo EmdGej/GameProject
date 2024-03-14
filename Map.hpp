@@ -4,11 +4,11 @@
 #include <vector>
 #include <string>
 
-namespace Map {
-  const int Height = 35;
-  const int Width = 100;
 
-  std::vector<std::string> tilemap = {
+const int Height = 35;
+const int Width = 100;
+
+std::vector<std::string> tilemap = {
     
     "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
     "BBBBBBBBBBBBBBBBBBBBB                                                                              B",
@@ -46,7 +46,6 @@ namespace Map {
     "B             FFFBBBBBBBBBSSSSSBBBBSSSSSSSSSSBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBSSSSSSSSSFSSSSSSSSSSB",
     "BFFFFFFFFFFFFFBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
   
-  };
-}
+};
 
 #endif
