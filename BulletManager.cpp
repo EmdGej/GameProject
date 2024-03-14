@@ -43,6 +43,6 @@ void BulletManager::UpdateDrawBullets(sf::RenderWindow& window,
   }
 }
 
-std::list<Bullet*>& BulletManager::GetBulletsList() {
-  return bullets_;
+std::list<Bullet*>* BulletManager::GetBulletsList() {
+  return &bullets_;
 }

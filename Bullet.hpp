@@ -26,6 +26,7 @@ class Bullet {
   bool GetIsAlive() const;
 
   void SetXSpeed(double value);
+  void SetIsAlive(bool value);
 
  private:
   AnimationManager manager_;

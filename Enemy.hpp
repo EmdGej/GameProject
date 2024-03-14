@@ -19,6 +19,9 @@ class Enemy : public AbstractEntity {
   double GetXCoord() const;
   double GetYCoord() const;
 
+  double GetAnimationHeight();
+  double GetAnimationWidth();
+
   double GetXSpeed() const;
 
   bool GetIsAlive() const;

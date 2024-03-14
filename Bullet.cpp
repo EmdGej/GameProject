@@ -30,5 +30,5 @@ bool Bullet::GetIsAlive() const {return is_alive_; }
 double Bullet::GetBulletWidth() { return manager_.GetAnimationWidth(); }
 double Bullet::GetBulletHeight() { return manager_.GetAnimationHeight(); }
 
-
 void Bullet::SetXSpeed(double value) { x_speed_ = value; }
+void Bullet::SetIsAlive(bool value) { is_alive_ = value; }

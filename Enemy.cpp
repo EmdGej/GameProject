@@ -66,3 +66,6 @@ void Enemy::SetSpeedX(double value) { x_speed_ = value; }
 void Enemy::SetDirection(bool flag) { direction_ = flag; }
 
 void Enemy::SetIsAlive(bool flag) { is_alive_ = flag; }
+
+double Enemy::GetAnimationHeight() { return manager_.GetAnimationHeight(); }
+double Enemy::GetAnimationWidth() { return manager_.GetAnimationWidth(); }
