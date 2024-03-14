@@ -1,11 +1,14 @@
 all: main
 	./sfml-app
 
-main: main.o Animation.o AnimationManager.o Player.o AnimationLoader.o MapLoader.o Bullet.o BulletManager.o
-	g++ -L/lib main.o Animation.o AnimationManager.o Player.o AnimationLoader.o MapLoader.o Bullet.o BulletManager.o -o sfml-app -lsfml-graphics -lsfml-window -lsfml-system
+main: main.o Animation.o AnimationManager.o Player.o AnimationLoader.o MapLoader.o Bullet.o BulletManager.o Enemy.o
+	g++ -L/lib main.o Animation.o AnimationManager.o Player.o AnimationLoader.o MapLoader.o Bullet.o BulletManager.o Enemy.o -o sfml-app -lsfml-graphics -lsfml-window -lsfml-system
 
 main.o: main.cpp
 	g++ -c main.cpp -I /include
+
+Enemy.o: Enemy.cpp Enemy.hpp
+	g++ -c Enemy.cpp -I /include
 
 BulletManager.o: BulletManager.cpp BulletManager.hpp
 	g++ -c BulletManager.cpp -I /include
