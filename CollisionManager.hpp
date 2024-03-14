@@ -7,7 +7,7 @@
 
 class CollisionManager {
  public:
-  void CheckCollisions(Player& player, std::vector<Enemy>& enemies);
+  void CheckCollisions(Player& player, std::vector<Enemy*>& enemies);
 };
 
 #endif
