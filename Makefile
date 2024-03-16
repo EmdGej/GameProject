@@ -1,11 +1,14 @@
 all: main
 	./sfml-app
 
-main: main.o Animation/Animation.o AnimationManager/AnimationManager.o Player/Player.o AnimationLoader/AnimationLoader.o MapLoader/MapLoader.o Bullet/Bullet.o BulletManager/BulletManager.o Enemy/Enemy.o CollisionManager/CollisionManager.o  EnemyManager/EnemyManager.o
-	g++ -L/lib main.o Animation/Animation.o AnimationManager/AnimationManager.o Player/Player.o AnimationLoader/AnimationLoader.o MapLoader/MapLoader.o Bullet/Bullet.o BulletManager/BulletManager.o Enemy/Enemy.o CollisionManager/CollisionManager.o  EnemyManager/EnemyManager.o -o sfml-app -lsfml-graphics -lsfml-window -lsfml-system
+main: main.o Animation/Animation.o AnimationManager/AnimationManager.o Player/Player.o AnimationLoader/AnimationLoader.o MapLoader/MapLoader.o Bullet/Bullet.o BulletManager/BulletManager.o Enemy/Enemy.o CollisionManager/CollisionManager.o  EnemyManager/EnemyManager.o ControlManager/ControlManager.o
+	g++ -L/lib main.o Animation/Animation.o AnimationManager/AnimationManager.o Player/Player.o AnimationLoader/AnimationLoader.o MapLoader/MapLoader.o Bullet/Bullet.o BulletManager/BulletManager.o Enemy/Enemy.o CollisionManager/CollisionManager.o  EnemyManager/EnemyManager.o ControlManager/ControlManager.o -o sfml-app -lsfml-graphics -lsfml-window -lsfml-system
 
 main.o: main.cpp
 	g++ -c main.cpp -I /SFML/include
+
+ControlManager.o: ControlManager/ControlManager.cpp ControlManager/ControlManager.hpp
+	g++ -c ControlManager/ControlManager.cpp -I /SFML/include
 
 EnemyManager.o: EnemyManager/EnemyManager.cpp EnemyManager/EnemyManager.hpp
 	g++ -c EnemyManager/EnemyManager.cpp -I /SFML/include
@@ -38,6 +41,6 @@ Animation.o: Animation/Animation.cpp Animation/Animation.hpp
 	g++ -c Animation/Animation.cpp -I /SFML/include
 
 clear:
+	rm main.o Animation/Animation.o AnimationManager/AnimationManager.o Player/Player.o AnimationLoader/AnimationLoader.o MapLoader/MapLoader.o Bullet/Bullet.o BulletManager/BulletManager.o Enemy/Enemy.o CollisionManager/CollisionManager.o  EnemyManager/EnemyManager.o ControlManager/ControlManager.o
 	rm *.o
 	rm sfml-app
-	rm Animation/Animation.o AnimationManager/AnimationManager.o Player/Player.o AnimationLoader/AnimationLoader.o MapLoader/MapLoader.o Bullet/Bullet.o BulletManager/BulletManager.o Enemy/Enemy.o CollisionManager/CollisionManager.o  EnemyManager/EnemyManager.o
