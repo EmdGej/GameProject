@@ -1,43 +1,43 @@
 all: main
 	./sfml-app
 
-main: main.o Animation.o AnimationManager.o Player.o AnimationLoader.o MapLoader.o Bullet.o BulletManager.o Enemy.o CollisionManager.o EnemyManager.o
-	g++ -L/lib main.o Animation.o AnimationManager.o Player.o AnimationLoader.o MapLoader.o Bullet.o BulletManager.o Enemy.o CollisionManager.o EnemyManager.o -o sfml-app -lsfml-graphics -lsfml-window -lsfml-system
+main: main.o Animation/Animation.o AnimationManager/AnimationManager.o Player/Player.o AnimationLoader/AnimationLoader.o MapLoader/MapLoader.o Bullet/Bullet.o BulletManager/BulletManager.o Enemy/Enemy.o CollisionManager/CollisionManager.o  EnemyManager/EnemyManager.o
+	g++ -L/lib main.o Animation/Animation.o AnimationManager/AnimationManager.o Player/Player.o AnimationLoader/AnimationLoader.o MapLoader/MapLoader.o Bullet/Bullet.o BulletManager/BulletManager.o Enemy/Enemy.o CollisionManager/CollisionManager.o  EnemyManager/EnemyManager.o -o sfml-app -lsfml-graphics -lsfml-window -lsfml-system
 
 main.o: main.cpp
 	g++ -c main.cpp -I /include
 
-EnemyManager.o: EnemyManager.cpp EnemyManager.hpp
-	g++ -c EnemyManager.cpp -I /include
+EnemyManager.o: EnemyManager/EnemyManager.cpp EnemyManager/EnemyManager.hpp
+	g++ -c EnemyManager/EnemyManager.cpp -I /include
 
-CollisionManager.o: CollisionManager.cpp CollisionManager.hpp
-	g++ -c CollisionManager.cpp -I /include
+CollisionManager.o: CollisionManager/CollisionManager.cpp CollisionManager/CollisionManager.hpp
+	g++ -c CollisionManager/CollisionManager.cpp -I /include
 
-Enemy.o: Enemy.cpp Enemy.hpp
-	g++ -c Enemy.cpp -I /include
+Enemy.o: Enemy/Enemy.cpp Enemy/Enemy.hpp
+	g++ -c Enemy/Enemy.cpp -I /include
 
-BulletManager.o: BulletManager.cpp BulletManager.hpp
-	g++ -c BulletManager.cpp -I /include
+BulletManager.o: BulletManager/BulletManager.cpp BulletManager/BulletManager.hpp
+	g++ -c BulletManager/BulletManager.cpp -I /include
 
-Bullet.o: Bullet.cpp Bullet.hpp
-	g++ -c Bullet.cpp -I /include
+Bullet.o: Bullet/Bullet.cpp Bullet/Bullet.hpp
+	g++ -c Bullet/Bullet.cpp -I /include
 
-MapLoader.o: MapLoader.cpp MapLoader.hpp
-	g++ -c MapLoader.cpp -I /include
+MapLoader.o: MapLoader/MapLoader.cpp MapLoader/MapLoader.hpp
+	g++ -c MapLoader/MapLoader.cpp -I /include
 
-AnimationLoader.o: AnimationLoader.cpp AnimationLoader.hpp
-	g++ -c AnimationLoader.cpp -I /include
+Player.o: Player/Player.cpp Player/Player.hpp
+	g++ -c Player/Player.cpp -I /include
 
-Player.o: Player.cpp Player.hpp
-	g++ -c Player.cpp -I /include
+AnimationLoader.o: AnimationLoader/AnimationLoader.cpp AnimationLoader/AnimationLoader.hpp
+	g++ -c AnimationLoader/AnimationLoader.cpp -I /include
 
-AnimationManager.o: AnimationManager.cpp AnimationManager.hpp
-	g++ -c AnimationManager.cpp -I /include
+AnimationManager.o: AnimationManager/AnimationManager.cpp AnimationManager/AnimationManager.hpp
+	g++ -c AnimationManager/AnimationManager.cpp -I /include
 
-Animation.o: Animation.cpp Animation.hpp
-	g++ -c Animation.cpp -I /include
+Animation.o: Animation/Animation.cpp Animation/Animation.hpp
+	g++ -c Animation/Animation.cpp -I /include
 
 clear:
+	rm Animation/Animation.o AnimationManager/AnimationManager.o Player/Player.o AnimationLoader/AnimationLoader.o MapLoader/MapLoader.o Bullet/Bullet.o BulletManager/BulletManager.o Enemy/Enemy.o CollisionManager/CollisionManager.o  EnemyManager/EnemyManager.o
 	rm *.o
-	rm sfml-app	 
-
+	rm sfml-app
