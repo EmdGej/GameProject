@@ -24,7 +24,10 @@ struct AnimationParams {
 };
 class AnimationLoader {
  public:
+  AnimationLoader();
+
   AnimationLoader(const std::vector<AnimationParams>& animations);
+
   void LoadSprites(AnimationManager& manager);
 
  private:

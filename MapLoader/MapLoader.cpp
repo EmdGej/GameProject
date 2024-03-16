@@ -29,7 +29,7 @@ void MapLoader::DrawMap(sf::RenderWindow& window, double offsetX,
       if (draw_map.map[i][j] == ' ') {
         continue;
       }
-      
+
       draw_map.rectangle.setTexture(draw_map.tiles[draw_map.map[i][j]]);
 
       draw_map.rectangle.setPosition(j * draw_map.tile_size - offsetX,

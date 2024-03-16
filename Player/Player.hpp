@@ -35,22 +35,26 @@ left, 1 - right - направление движения игрока const dou
 
   FillMapWithKeys - заполняет map используемыми кнопками
 */
+#include <unordered_set>
+
 #include "../AbstractEntity/AbstractEntity.hpp"
 #include "../MapLoader/MapLoader.hpp"
-#include <unordered_set>
 
 const double kLoadTime = 100;
 class Player : public AbstractEntity {
  public:
-  Player(AnimationManager manager, double x_coord, double y_coord, int32_t health, int32_t damage,
-         double acceleration = 0.005);
+  Player();
 
-  void UpdatePlayer(const MapParams& params, const std::unordered_set<char>& blocks,
+  Player(AnimationManager manager, double x_coord, double y_coord,
+         int32_t health, int32_t damage, double acceleration = 0.005);
+
+  void UpdatePlayer(const MapParams& params,
+                    const std::unordered_set<char>& blocks,
                     const std::unordered_set<char>& die_blocks, double time);
   void SetKeys(std::string key, bool flag);
 
   void DrawPlayer(sf::RenderWindow& window, double offsetX, double offsetY);
- 
+
   double GetXCoord() const;
   double GetYCoord() const;
 
@@ -163,7 +167,7 @@ class Player : public AbstractEntity {
       STATE = die;
       return;
     }
-    
+
     //============================== RUN ============================== //
     if (keys_["ArrowLeft"] && keys_["ArrowRight"]) {
       if (!both_pressed_) {
@@ -267,7 +271,8 @@ class Player : public AbstractEntity {
     }
   }
 
-  void CollisionX(const MapParams& params, const std::unordered_set<char>& blocks) {
+  void CollisionX(const MapParams& params,
+                  const std::unordered_set<char>& blocks) {
     for (int32_t i = y_coord_ / params.tile_size;
          i < (y_coord_ + manager_.GetAnimationHeight()) / params.tile_size;
          ++i) {
@@ -275,7 +280,8 @@ class Player : public AbstractEntity {
            j < (x_coord_ + manager_.GetAnimationWidth()) / params.tile_size;
            ++j) {
         if (blocks.find(params.map[i][j]) != blocks.end()) {
-          if (direction_ && j + 1 >= (x_coord_ + manager_.GetAnimationWidth()) / params.tile_size) {
+          if (direction_ && j + 1 >= (x_coord_ + manager_.GetAnimationWidth()) /
+                                         params.tile_size) {
             x_coord_ = j * params.tile_size - manager_.GetAnimationWidth();
             return;
           }
@@ -288,7 +294,8 @@ class Player : public AbstractEntity {
     }
   }
 
-  void CollisionY(const MapParams& params, const std::unordered_set<char>& blocks) {
+  void CollisionY(const MapParams& params,
+                  const std::unordered_set<char>& blocks) {
     for (int32_t i = y_coord_ / params.tile_size;
          i < (y_coord_ + manager_.GetAnimationHeight()) / params.tile_size;
          ++i) {
@@ -296,7 +303,9 @@ class Player : public AbstractEntity {
            j < (x_coord_ + manager_.GetAnimationWidth()) / params.tile_size;
            ++j) {
         if (blocks.find(params.map[i][j]) != blocks.end()) {
-          if (y_speed_ > 0 &&  i + 1 >= (y_coord_ + manager_.GetAnimationHeight()) / params.tile_size) {
+          if (y_speed_ > 0 &&
+              i + 1 >= (y_coord_ + manager_.GetAnimationHeight()) /
+                           params.tile_size) {
             y_coord_ = i * params.tile_size - manager_.GetAnimationHeight();
             y_speed_ = 0;
             is_on_ground_ = true;
@@ -316,7 +325,8 @@ class Player : public AbstractEntity {
     }
   }
 
-  void CheckDie(const MapParams& params, const std::unordered_set<char>& die_blocks) {
+  void CheckDie(const MapParams& params,
+                const std::unordered_set<char>& die_blocks) {
     for (int32_t i = y_coord_ / params.tile_size;
          i < (y_coord_ + manager_.GetAnimationHeight()) / params.tile_size;
          ++i) {
@@ -326,12 +336,12 @@ class Player : public AbstractEntity {
         if (die_blocks.find(params.map[i][j]) != die_blocks.end()) {
           STATE = die;
           health_ = 0;
-          
-          x_speed_ = 0;
-          //y_speed_ = 0;
 
-          //manager_.SetAnimation("killed_lay");
-          //y_coord_ = i * params.tile_size - GetAnimationHeight() / 2;
+          x_speed_ = 0;
+          // y_speed_ = 0;
+
+          // manager_.SetAnimation("killed_lay");
+          // y_coord_ = i * params.tile_size - GetAnimationHeight() / 2;
         }
       }
     }

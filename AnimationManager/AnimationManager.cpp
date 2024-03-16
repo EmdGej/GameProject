@@ -2,13 +2,12 @@
 
 void AnimationManager::Create(std::string animation_name,
                               const std::vector<sf::Texture>& textures,
-                              double play_speed, int32_t scale) {                                
+                              double play_speed, int32_t scale) {
   animations_list_[animation_name] = Animation(textures, play_speed, scale);
   current_animation_ = animation_name;
 }
 
-void AnimationManager::Draw(sf::RenderWindow& window, int32_t x,
-                            int32_t y) {
+void AnimationManager::Draw(sf::RenderWindow& window, int32_t x, int32_t y) {
   animations_list_[current_animation_].SetSpritePosition(x, y);
   animations_list_[current_animation_].DrawSpriteOnWindow(window);
 }

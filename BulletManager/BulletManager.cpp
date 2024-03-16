@@ -35,7 +35,7 @@ void BulletManager::CheckLifeBullets() {
 void BulletManager::UpdateDrawBullets(sf::RenderWindow& window,
                                       const MapParams& map_params,
                                       const std::unordered_set<char>& blocks,
-                                      double time, double offsetX, 
+                                      double time, double offsetX,
                                       double offsetY) {
   for (auto it = bullets_.begin(); it != bullets_.end(); it++) {
     (*it)->UpdateBullet(map_params, blocks, time);
@@ -43,6 +43,10 @@ void BulletManager::UpdateDrawBullets(sf::RenderWindow& window,
   }
 }
 
-std::list<Bullet*>* BulletManager::GetBulletsList() {
-  return &bullets_;
+std::list<Bullet*>* BulletManager::GetBulletsList() { return &bullets_; }
+
+BulletManager::~BulletManager() {
+  for (auto bullet : bullets_) {
+    delete bullet;
+  }
 }

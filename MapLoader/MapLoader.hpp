@@ -1,10 +1,9 @@
 #ifndef MAP_LOADER
 #define MAP_LOADER
 
+#include <SFML/Graphics.hpp>
 #include <unordered_map>
 #include <vector>
-
-#include <SFML/Graphics.hpp>
 
 struct MapParams {
   std::vector<std::string> map;

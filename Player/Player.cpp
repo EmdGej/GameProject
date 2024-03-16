@@ -1,6 +1,8 @@
 #include "Player.hpp"
 #include <unordered_set>
 
+Player::Player() = default;
+
 Player::Player(AnimationManager manager, double x_coord, double y_coord, int32_t health, int32_t damage,
                double acceleration) {
   x_coord_ = x_coord;
@@ -43,6 +45,7 @@ void Player::UpdatePlayer(const MapParams& params, const std::unordered_set<char
   CollisionX(params, blocks);
 
   y_speed_ += (!is_on_ground_) * acceleration_ * time;
+  y_speed_ = std::min(y_speed_, kSpeedY);
   y_coord_ += y_speed_ * time;
   is_on_ground_ = false;
   CollisionY(params, blocks);

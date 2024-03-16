@@ -1,9 +1,10 @@
 #ifndef ABSTRACT_ENTITY
 #define ABSTRACT_ENTITY
 
-#include "../AnimationManager/AnimationManager.hpp"
 #include <unordered_map>
 #include <vector>
+
+#include "../AnimationManager/AnimationManager.hpp"
 
 class AbstractEntity {
  protected:

@@ -1,8 +1,7 @@
 #include "AnimationLoader.hpp"
 
 struct AnimationParams;
-AnimationLoader::AnimationLoader(
-    const std::vector<AnimationParams>& animations)
+AnimationLoader::AnimationLoader(const std::vector<AnimationParams>& animations)
     : animations_(animations) {}
 
 void AnimationLoader::LoadSprites(AnimationManager& manager) {
@@ -19,6 +18,9 @@ void AnimationLoader::LoadSprites(AnimationManager& manager) {
       ++num;
     }
 
-    manager.Create(animations_[i].name, textures, animations_[i].speed, animations_[i].scale);
+    manager.Create(animations_[i].name, textures, animations_[i].speed,
+                   animations_[i].scale);
   }
 }
+
+AnimationLoader::AnimationLoader() = default;

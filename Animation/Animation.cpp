@@ -61,8 +61,12 @@ bool Animation::GetIsPlaying() const { return is_playing_; }
 
 int32_t Animation::GetScale() const { return scale_; }
 
-int32_t Animation::GetAnimationWidth() const { return frames_[0].width * sprite_.getScale().x; }
-int32_t Animation::GetAnimationHeight() const { return frames_[0].height * sprite_.getScale().y; }
+int32_t Animation::GetAnimationWidth() const {
+  return frames_[0].width * sprite_.getScale().x;
+}
+int32_t Animation::GetAnimationHeight() const {
+  return frames_[0].height * sprite_.getScale().y;
+}
 
 // =========== SETTERS ============ //
 
