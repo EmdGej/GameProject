@@ -24,7 +24,7 @@ Game::Game(int32_t window_width, int32_t window_height)
   map_loader_.DownloadMap(tilemap, "lvl1", tls_, Height, Width, 32);
 
   colision_blocks_ = {'B', 'F'};
-  die_blocks_ = {'S'};
+  die_blocks_ = {'S', 'R'};
 }
 
 void Game::GameLoop() {
