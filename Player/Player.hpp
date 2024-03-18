@@ -285,7 +285,10 @@ class Player : public AbstractEntity {
             x_coord_ = j * params.tile_size - manager_.GetAnimationWidth();
             return;
           }
-          if (!direction_ && j == int(x_coord_ / params.tile_size)) {
+          if (!direction_ && j == int(x_coord_ / params.tile_size) &&
+              i != y_coord_ / params.tile_size &&
+              i + 1 < (y_coord_ + manager_.GetAnimationHeight()) /
+                          params.tile_size) {
             x_coord_ = j * params.tile_size + params.tile_size;
             return;
           }
