@@ -8,11 +8,18 @@ Game::Game(int32_t window_width, int32_t window_height)
   background_txt_.loadFromFile("background/background.png");
   background_.setTexture(background_txt_);
   animation_loader_.LoadSprites(animation_manager_);
-
   player_ = Player(animation_manager_, 300, 700, 100, 1, 0.0015);
   player_.SetDoubleJumpAbility(true);
   player_.SetSpeedY(0.6);
   player_.SetCurXSpeed(0.25);
+
+  MenuParams params = {960, 400, 150, 150};
+
+  GameMenu* main_menu = new GameMenu(params, {"Start", "Exit"}, window_width, window_height);
+  GameMenu* restart_menu = new GameMenu(params, {"Continue", "Restart", "Main Menu"}, window_width, window_height);
+
+  menu_manager_.AddMenu("main menu", main_menu);
+  menu_manager_.AddMenu("restart menu", restart_menu);
 
   tls_['B'] = "tiles/B.png";
   tls_['F'] = "tiles/F.png";
@@ -28,6 +35,7 @@ Game::Game(int32_t window_width, int32_t window_height)
 }
 
 void Game::GameLoop() {
+
   // ============================== Create Enemies
   // ============================== //
   Enemy enemy1(animation_manager_, 4195, 1034, 4195, 4320, 0.1);
@@ -52,9 +60,8 @@ void Game::GameLoop() {
       if (event.type == sf::Event::Closed) {
         window_.close();
       }
-
       if (event.type == sf::Event::KeyPressed) {
-        if (event.key.code == sf::Keyboard::X) {
+        if (event.key.code == sf::Keyboard::X && !menu_manager_.GetIsMenu()) {
           player_.SetKeys("X", true);
           bullet_manager_.AddBullet(
               animation_manager_, 0.5, player_.GetDirection(),
@@ -62,32 +69,41 @@ void Game::GameLoop() {
               player_.GetAnimationWidth(), player_.GetAnimationHeight(),
               player_.GetHealth());
         }
+        if (event.key.code == sf::Keyboard::Escape && !menu_manager_.GetIsMenu()) {
+          menu_manager_.SetIsMenu(true);
+          menu_manager_.SetCurMenu("restart menu");
+        }
+        if(menu_manager_.GetIsMenu()) {
+          menu_manager_.UpdateCurMenu(window_, player_, enemy_manager_);
+        }
       }
     }
+    if(menu_manager_.GetIsMenu()) {
+      menu_manager_.DrawCurMenu(window_);
+    } else {
+      control_manager_.ControlKeyboard(player_);
 
-    control_manager_.ControlKeyboard(player_);
+      offsetX_ = player_.GetXCoord() - width_ / 2;
+      offsetY_ = player_.GetYCoord() - height_ / 2;
 
-    offsetX_ = player_.GetXCoord() - width_ / 2;
-    offsetY_ = player_.GetYCoord() - height_ / 2;
+      window_.clear(sf::Color::White);
 
-    window_.clear(sf::Color::White);
+      window_.draw(background_);
 
-    window_.draw(background_);
+      map_loader_.DrawMap(window_, offsetX_, offsetY_);
 
-    map_loader_.DrawMap(window_, offsetX_, offsetY_);
+      player_.UpdatePlayer(map_, colision_blocks_, die_blocks_, time);
+      player_.DrawPlayer(window_, offsetX_, offsetY_);
 
-    player_.UpdatePlayer(map_, colision_blocks_, die_blocks_, time);
-    player_.DrawPlayer(window_, offsetX_, offsetY_);
+      enemy_manager_.UpdateEnemies(time, bullet_manager_.GetBulletsList());
+      enemy_manager_.DrawEnemies(window_, offsetX_, offsetY_);
 
-    enemy_manager_.UpdateEnemies(time, bullet_manager_.GetBulletsList());
-    enemy_manager_.DrawEnemies(window_, offsetX_, offsetY_);
+      bullet_manager_.CheckLifeBullets();
+      bullet_manager_.UpdateDrawBullets(window_, map_, colision_blocks_, time,
+                                        offsetX_, offsetY_);
 
-    bullet_manager_.CheckLifeBullets();
-    bullet_manager_.UpdateDrawBullets(window_, map_, colision_blocks_, time,
-                                      offsetX_, offsetY_);
-
-    collision_manager_.CheckCollisions(player_, enemy_manager_.GetEnemies());
-
+      collision_manager_.CheckCollisions(player_, enemy_manager_.GetEnemies());      
+    }
     window_.display();
   }
 }

@@ -11,6 +11,8 @@
 #include "../Map/Map.hpp"
 #include "../MapLoader/MapLoader.hpp"
 #include "../Player/Player.hpp"
+#include "../GameMenu/GameMenu.hpp"
+#include "../MenuManager/MenuManager.hpp"
 
 class Game {
  public:
@@ -25,6 +27,7 @@ class Game {
   EnemyManager enemy_manager_;
   CollisionManager collision_manager_;
   ControlManager control_manager_;
+  MenuManager menu_manager_;
 
   sf::Sprite background_;
   sf::Texture background_txt_;

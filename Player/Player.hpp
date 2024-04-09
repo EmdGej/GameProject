@@ -39,6 +39,7 @@ left, 1 - right - направление движения игрока const dou
 
 #include "../AbstractEntity/AbstractEntity.hpp"
 #include "../MapLoader/MapLoader.hpp"
+#include "../DefaultSettings/DefaultSettings.hpp"
 
 const double kLoadTime = 100;
 class Player : public AbstractEntity {
@@ -95,6 +96,8 @@ class Player : public AbstractEntity {
   void SetDoubleJumpAbility(bool ability);
 
   void SetHealth(int32_t value);
+
+  void SetDefault();
 
   int32_t GetAnimationWidth();
   int32_t GetAnimationHeight();

@@ -3,6 +3,7 @@
 
 #include "../BulletManager/BulletManager.hpp"
 #include "../Enemy/Enemy.hpp"
+#include "../DefaultSettings/DefaultSettings.hpp"
 
 class EnemyManager {
  public:
@@ -16,6 +17,8 @@ class EnemyManager {
   void DrawEnemies(sf::RenderWindow& window, double offsetX, double offsetY);
 
   std::vector<Enemy>& GetEnemies();
+
+  void SetAllDefault();
 
  private:
   std::vector<Enemy> enemies_;

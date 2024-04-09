@@ -1,14 +1,23 @@
 all: main
 	./sfml-app
 
-main: main.o Animation.o AnimationManager.o Player.o AnimationLoader.o MapLoader.o Bullet.o BulletManager.o Enemy.o CollisionManager.o EnemyManager.o ControlManager.o Map.o Game.o 
-	g++ -std=c++17 -L $(pwd)/SFML/lib main.o Animation.o AnimationManager.o Player.o AnimationLoader.o MapLoader.o Bullet.o BulletManager.o Enemy.o CollisionManager.o EnemyManager.o ControlManager.o Map.o Game.o -o sfml-app -lsfml-graphics -lsfml-window -lsfml-system
+main: main.o Animation.o AnimationManager.o Player.o AnimationLoader.o MapLoader.o Bullet.o BulletManager.o Enemy.o CollisionManager.o EnemyManager.o ControlManager.o Map.o DefaultSettings.o GameMenu.o MenuManager.o Game.o
+	g++ -std=c++17 -L $(pwd)/SFML/lib main.o Animation.o AnimationManager.o Player.o AnimationLoader.o MapLoader.o Bullet.o BulletManager.o Enemy.o CollisionManager.o EnemyManager.o ControlManager.o Map.o DefaultSettings.o GameMenu.o MenuManager.o Game.o -o sfml-app -lsfml-graphics -lsfml-window -lsfml-system
 
 main.o: main.cpp
 	g++ -std=c++17 -c main.cpp -I $(pwd)/SFML/include
 
 Game.o: Game/Game.cpp Game/Game.hpp
 	g++ -std=c++17 -c Game/Game.cpp -I $(pwd)/SFML/include
+
+MenuManager.o: MenuManager/MenuManager.cpp MenuManager/MenuManager.hpp
+	g++ -std=c++17 -c MenuManager/MenuManager.cpp -I $(pwd)/SFML/include
+
+GameMenu.o: GameMenu/GameMenu.cpp GameMenu/GameMenu.hpp
+	g++ -std=c++17 -c GameMenu/GameMenu.cpp -I $(pwd)/SFML/include
+
+DefaultSettings.o: DefaultSettings/DefaultSettings.cpp DefaultSettings/DefaultSettings.hpp
+	g++ -std=c++17 -c DefaultSettings/DefaultSettings.cpp -I $(pwd)/SFML/include
 
 Map.o: Map/Map.cpp Map/Map.hpp
 	g++ -std=c++17 -c Map/Map.cpp -I $(pwd)/SFML/include
@@ -47,6 +56,6 @@ Animation.o: Animation/Animation.cpp Animation/Animation.hpp
 	g++ -std=c++17 -c Animation/Animation.cpp -I $(pwd)/SFML/include
 
 clear:
-	rm main.o Animation.o AnimationManager.o Player.o AnimationLoader.o MapLoader.o Bullet.o BulletManager.o Enemy.o CollisionManager.o EnemyManager.o ControlManager.o Game.o
+	rm main.o Animation.o AnimationManager.o Player.o AnimationLoader.o MapLoader.o Bullet.o BulletManager.o Enemy.o CollisionManager.o EnemyManager.o ControlManager.o Map.o DefaultSettings.o GameMenu.o MenuManager.o Game.o
 	rm *.o
 	rm sfml-app

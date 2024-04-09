@@ -113,3 +113,13 @@ void Player::SetCurYSpeed(double value) { y_speed_ = value; }
 void Player::SetAcceleration(double value) { acceleration_ = value; }
 
 void Player::SetHealth(int32_t value) { health_ = value; }
+
+void Player::SetDefault() {
+  x_coord_ = DefaultSettings::PlayerSettings::x_coord;
+  y_coord_ = DefaultSettings::PlayerSettings::y_Coord;
+  health_ = DefaultSettings::PlayerSettings::health;
+  damage_ = DefaultSettings::PlayerSettings::damage;
+  acceleration_ = DefaultSettings::PlayerSettings::acceleration;
+  stamina_ = DefaultSettings::PlayerSettings::stamina;
+  STATE = stay;
+}
