@@ -56,6 +56,5 @@ Animation.o: Animation/Animation.cpp Animation/Animation.hpp
 	g++ -std=c++17 -c Animation/Animation.cpp -I $(pwd)/SFML/include
 
 clear:
-	rm main.o Animation.o AnimationManager.o Player.o AnimationLoader.o MapLoader.o Bullet.o BulletManager.o Enemy.o CollisionManager.o EnemyManager.o ControlManager.o Map.o DefaultSettings.o GameMenu.o MenuManager.o Game.o
 	rm *.o
 	rm sfml-app
