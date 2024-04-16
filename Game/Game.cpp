@@ -74,6 +74,7 @@ void Game::GameLoop() {
           menu_manager_.SetCurMenu("restart menu");
         }
         if(menu_manager_.GetIsMenu()) {
+          control_manager_.ControlKeyboard(player_, menu_manager_);
           menu_manager_.UpdateCurMenu(window_, player_, enemy_manager_);
         }
       }
@@ -81,7 +82,7 @@ void Game::GameLoop() {
     if(menu_manager_.GetIsMenu()) {
       menu_manager_.DrawCurMenu(window_);
     } else {
-      control_manager_.ControlKeyboard(player_);
+      control_manager_.ControlKeyboard(player_, menu_manager_);
 
       offsetX_ = player_.GetXCoord() - width_ / 2;
       offsetY_ = player_.GetYCoord() - height_ / 2;

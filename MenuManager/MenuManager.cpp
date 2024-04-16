@@ -3,6 +3,7 @@
 MenuManager::MenuManager() {
     cur_menu_ = "main menu";
     is_menu_ = true;
+    FillMapWithKeys();
 }
 
 MenuManager::~MenuManager() {
@@ -16,13 +17,13 @@ void MenuManager::AddMenu(const std::string& name, GameMenu* menu) {
 }
 
 void MenuManager::UpdateCurMenu(sf::RenderWindow& window, Player& player, EnemyManager& enemy_manager) {
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+    if(keys_["Up"]) {
         menus_[cur_menu_]->MoveUp();
     }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+    if(keys_["Down"]) {
         menus_[cur_menu_]->MoveDown();
     }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
+    if(keys_["Enter"]) {
         if(cur_menu_ == "main menu") {
             if(menus_[cur_menu_]->GetCurItem().getString() == "Exit") {
                 window.close();
@@ -48,6 +49,7 @@ void MenuManager::UpdateCurMenu(sf::RenderWindow& window, Player& player, EnemyM
             }    
         }
     }
+    FillMapWithKeys();
 }
 
 void MenuManager::DrawCurMenu(sf::RenderWindow& window) {
@@ -72,4 +74,8 @@ GameMenu* MenuManager::GetCurMenu() {
 
 std::string MenuManager::GetCurName() const {
     return cur_menu_;
+}
+
+void MenuManager::SetKeys(std::string key, bool flag) {
+    keys_[key] = flag;
 }

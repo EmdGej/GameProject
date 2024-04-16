@@ -28,10 +28,22 @@ class MenuManager {
 
     std::string GetCurName() const;
 
+    void SetKeys(std::string key, bool flag);
+
     private:
     bool is_menu_ = true;
+    std::unordered_map<std::string, bool> keys_;
     std::unordered_map<std::string, GameMenu*> menus_;
     std::string cur_menu_ = "main menu";
+    
+    void FillMapWithKeys() {
+        std::vector<std::string> keys = {"Up", "Down", "Enter",
+                                        "Escape"};
+
+        for (size_t i = 0; i < keys.size(); ++i) {
+        keys_[keys[i]] = false;
+        }
+    }
 };
 
 #endif
