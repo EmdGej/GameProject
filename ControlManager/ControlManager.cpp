@@ -40,7 +40,6 @@ void ControlManager::ControlKeyboard(Player& player, MenuManager& menu_manager, 
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
       menu_manager.SetKeys("Escape", true);
-      sounds_manager.PlaySound("pause_menu");
     }
   }
 }

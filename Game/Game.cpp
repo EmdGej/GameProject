@@ -116,6 +116,7 @@ void Game::GameLoop() {
         if (event.key.code == sf::Keyboard::Escape && !menu_manager_.GetIsMenu()) {
           menu_manager_.SetIsMenu(true);
           menu_manager_.SetCurMenu("restart menu");
+          sounds_manager_.PlaySound("pause_menu");
         }
 
         if(menu_manager_.GetIsMenu()) {
