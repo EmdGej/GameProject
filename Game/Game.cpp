@@ -117,7 +117,6 @@ void Game::GameLoop() {
     if(menu_manager_.GetIsMenu()) {
       if (game_music_playing) {
         sounds_manager_.StopMusic("game_music");
-        std::cout << 1 << '\n';
         game_music_playing = false;
       }
        
@@ -129,7 +128,6 @@ void Game::GameLoop() {
       if (player_.GetHealth() == 0) {
         if (game_music_playing) {
           sounds_manager_.StopMusic("game_music");
-          std::cout << 2 << '\n';
           game_music_playing = false;
         }
          
@@ -137,7 +135,6 @@ void Game::GameLoop() {
 
         if (!has_player_died) {
           sounds_manager_.PlaySound("die");
-          std::cout << 3 << '\n';
           has_player_died = true;
         }
       }
@@ -145,7 +142,6 @@ void Game::GameLoop() {
       if (!game_music_playing && player_.GetHealth() != 0) {
         sounds_manager_.PlayMusic("game_music");
         game_music_playing = true;
-        std::cout << 4 << '\n';
       }
        
       control_manager_.ControlKeyboard(player_, menu_manager_, sounds_manager_);
