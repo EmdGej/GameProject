@@ -1,8 +1,8 @@
 all: main
 	./sfml-app
 
-main: main.o Animation.o AnimationManager.o Player.o AnimationLoader.o MapLoader.o Bullet.o BulletManager.o Enemy.o CollisionManager.o EnemyManager.o ControlManager.o Map.o DefaultSettings.o GameMenu.o MenuManager.o Game.o
-	g++ -std=c++17 -L $(pwd)/SFML/lib main.o Animation.o AnimationManager.o Player.o AnimationLoader.o MapLoader.o Bullet.o BulletManager.o Enemy.o CollisionManager.o EnemyManager.o ControlManager.o Map.o DefaultSettings.o GameMenu.o MenuManager.o Game.o -o sfml-app -lsfml-graphics -lsfml-window -lsfml-system
+main: main.o Animation.o AnimationManager.o Player.o AnimationLoader.o MapLoader.o Bullet.o BulletManager.o Enemy.o CollisionManager.o EnemyManager.o ControlManager.o SoundsManager.o Map.o DefaultSettings.o GameMenu.o MenuManager.o Game.o
+	g++ -std=c++17 -L $(pwd)/SFML/lib main.o Animation.o AnimationManager.o Player.o AnimationLoader.o MapLoader.o Bullet.o BulletManager.o Enemy.o CollisionManager.o EnemyManager.o ControlManager.o SoundsManager.o Map.o DefaultSettings.o GameMenu.o MenuManager.o Game.o -o sfml-app -lsfml-graphics -lsfml-audio -lsfml-window -lsfml-system
 
 main.o: main.cpp
 	g++ -std=c++17 -c main.cpp -I $(pwd)/SFML/include
@@ -54,6 +54,9 @@ AnimationManager.o: AnimationManager/AnimationManager.cpp AnimationManager/Anima
 
 Animation.o: Animation/Animation.cpp Animation/Animation.hpp
 	g++ -std=c++17 -c Animation/Animation.cpp -I $(pwd)/SFML/include
+
+SoundsManager.o: SoundsManager/SoundsManager.cpp SoundsManager/SoundsManager.hpp
+	g++ -std=c++17 -c SoundsManager/SoundsManager.cpp -I $(pwd)/SFML/include
 
 clear:
 	rm *.o

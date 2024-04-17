@@ -13,7 +13,7 @@
 #include "../Player/Player.hpp"
 #include "../GameMenu/GameMenu.hpp"
 #include "../MenuManager/MenuManager.hpp"
-
+#include "../SoundsManager/SoundsManager.hpp"
 class Game {
  public:
   Game(int32_t window_width, int32_t window_height);
@@ -28,6 +28,8 @@ class Game {
   CollisionManager collision_manager_;
   ControlManager control_manager_;
   MenuManager menu_manager_;
+  SoundsManager sounds_manager_;
+
 
   sf::Sprite background_;
   sf::Texture background_txt_;

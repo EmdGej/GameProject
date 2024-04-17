@@ -6,10 +6,11 @@
 
 #include "../MenuManager/MenuManager.hpp"
 #include "../Player/Player.hpp"
+#include "../SoundsManager/SoundsManager.hpp"
 
 class ControlManager {
  public:
-  void ControlKeyboard(Player& player, MenuManager& menu_manager);
+  void ControlKeyboard(Player& player, MenuManager& menu_manager, SoundsManager& sounds_manager);
 };
 
 #endif

@@ -7,7 +7,7 @@ MenuManager::MenuManager() {
 }
 
 MenuManager::~MenuManager() {
-    for(auto&& elem: menus_) {
+    for(auto& elem: menus_) {
         delete elem.second;
     }
 }

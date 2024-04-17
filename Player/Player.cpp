@@ -77,6 +77,8 @@ double Player::GetCurYSpeed() const { return y_speed_; }
 bool Player::GetDirection() const { return direction_; }
 bool Player::GetIsOnGround() const { return is_on_ground_; }
 
+bool Player::GetIsJumpAvailable() const { return is_double_jump_available_; }
+
 int32_t Player::GetHealth() const { return health_; }
 
 int32_t Player::GetAnimationHeight() {

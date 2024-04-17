@@ -75,6 +75,8 @@ class Player : public AbstractEntity {
   bool GetIsOnGround() const;
   bool GetDirection() const;
 
+  bool GetIsJumpAvailable() const;
+
   void SetSpeedX(double value);
   void SetSpeedY(double value);
 
