@@ -16,6 +16,8 @@ class BulletManager {
 
   void CheckLifeBullets();
 
+  void Clear();
+
   void UpdateDrawBullets(sf::RenderWindow& window, const MapParams& map_params,
                          const std::unordered_set<char>& blocks, double time,
                          double offsetX, double offsetY);

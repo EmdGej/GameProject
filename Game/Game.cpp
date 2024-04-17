@@ -102,6 +102,16 @@ void Game::GameLoop() {
               }
         }
 
+        if (event.key.code == sf::Keyboard::R && !menu_manager_.GetIsMenu()) {
+          enemy_manager_.SetAllDefault();
+          player_.SetDefault();
+
+          game_music_playing = false;
+          has_player_died = false;
+
+          bullet_manager_.Clear();
+        }
+
         if (event.key.code == sf::Keyboard::Escape && !menu_manager_.GetIsMenu()) {
           menu_manager_.SetIsMenu(true);
           menu_manager_.SetCurMenu("restart menu");
@@ -119,7 +129,8 @@ void Game::GameLoop() {
         sounds_manager_.StopMusic("game_music");
         game_music_playing = false;
       }
-       
+      
+      bullet_manager_.Clear();
       menu_manager_.DrawCurMenu(window_);
 
       game_music_playing = false;
