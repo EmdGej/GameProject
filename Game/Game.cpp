@@ -15,9 +15,7 @@ Game::Game(int32_t window_width, int32_t window_height)
   background_.setTexture(background_txt_);
   background_.setScale(ScaleX, ScaleY); 
 
-
   animation_loader_.LoadSprites(animation_manager_);
-
 
   player_ = Player(animation_manager_, 300, 700, 100, 1, 0.0015);
   player_.SetDoubleJumpAbility(true);
@@ -32,7 +30,8 @@ Game::Game(int32_t window_width, int32_t window_height)
   menu_manager_.AddMenu("main menu", main_menu);
   menu_manager_.AddMenu("restart menu", restart_menu);
 
-  stamina_bar_ = StaminaBar(300, 30, 20, 20);
+  health_bar_ = HealthBar(300, 30, 20, 20);
+  stamina_bar_ = StaminaBar(300, 30, 20, 70);
 
   tls_['B'] = "tiles/B.png";
   tls_['F'] = "tiles/F.png";
@@ -180,6 +179,9 @@ void Game::GameLoop() {
 
       collision_manager_.CheckCollisions(player_, enemy_manager_.GetEnemies());
 
+      health_bar_.UpdateHealthBar(player_);
+      health_bar_.DrawHealthBar(window_);
+      
       stamina_bar_.UpdateStaminaBar(player_);
       stamina_bar_.DrawStaminaBar(window_);
 

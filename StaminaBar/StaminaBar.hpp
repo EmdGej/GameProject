@@ -30,18 +30,4 @@ class StaminaBar {
   bool is_image_ = false;
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #endif
