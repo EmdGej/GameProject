@@ -24,7 +24,7 @@ Game::Game(int32_t window_width, int32_t window_height)
   player_.SetSpeedY(0.6);
   player_.SetCurXSpeed(0.25);
 
-  MenuParams params = {960, 400, 150, 150};
+  MenuParams params = {window_width/2.0, 0.3 * window_height, 150, 150};
 
   GameMenu* main_menu = new GameMenu(params, {"Start", "Exit"}, window_width, window_height);
   GameMenu* restart_menu = new GameMenu(params, {"Continue", "Restart", "Main Menu"}, window_width, window_height);

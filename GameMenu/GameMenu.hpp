@@ -9,7 +9,7 @@ struct MenuParams {
     double x_coord;
     double y_coord;
     int32_t item_step;
-    size_t font_size;
+    int32_t font_size;
 };
 
 class GameMenu {
