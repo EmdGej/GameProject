@@ -63,6 +63,8 @@ void Player::SetKeys(std::string key, bool flag) { keys_[key] = flag; }
 double Player::GetXCoord() const { return x_coord_; }
 double Player::GetYCoord() const { return y_coord_; }
 
+double Player::GetStamina() const { return stamina_; }
+double Player::GetMaxStamina() const { return max_stamina_; }
 double Player::GetStaminaCoef() const { return kStaminaCoef; }
 double Player::GetStaminaLoss() const { return kStaminaLoss; }
 double Player::GetStaminaGet() const { return kStaminaGet; }

@@ -65,6 +65,8 @@ class Player : public AbstractEntity {
   double GetCurXSpeed() const;
   double GetCurYSpeed() const;
 
+  double GetStamina() const;
+  double GetMaxStamina() const;
   double GetStaminaCoef() const;
   double GetStaminaLoss() const;
   double GetStaminaGet() const;
@@ -117,6 +119,7 @@ class Player : public AbstractEntity {
   double kSpeedY = 2;
 
   double stamina_ = 100;
+  double max_stamina_ = 100;
   double kStaminaCoef = 2;
   double kStaminaLoss = 0.015;
   double kStaminaGet = 0.008;

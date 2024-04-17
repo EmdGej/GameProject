@@ -14,6 +14,7 @@
 #include "../GameMenu/GameMenu.hpp"
 #include "../MenuManager/MenuManager.hpp"
 #include "../SoundsManager/SoundsManager.hpp"
+#include "../StaminaBar/StaminaBar.hpp"
 class Game {
  public:
   Game(int32_t window_width, int32_t window_height);
@@ -37,6 +38,8 @@ class Game {
   Player player_;
   std::vector<Enemy*> enemies_;
   std::unordered_map<char, std::string> tls_;
+
+  StaminaBar stamina_bar_;
 
   MapParams map_;
   MapLoader map_loader_;

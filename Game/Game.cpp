@@ -32,6 +32,8 @@ Game::Game(int32_t window_width, int32_t window_height)
   menu_manager_.AddMenu("main menu", main_menu);
   menu_manager_.AddMenu("restart menu", restart_menu);
 
+  stamina_bar_ = StaminaBar(300, 30, 20, 20);
+
   tls_['B'] = "tiles/B.png";
   tls_['F'] = "tiles/F.png";
   tls_['S'] = "tiles/S.png";
@@ -176,7 +178,11 @@ void Game::GameLoop() {
       bullet_manager_.UpdateDrawBullets(window_, map_, colision_blocks_, time,
                                         offsetX_, offsetY_);
 
-      collision_manager_.CheckCollisions(player_, enemy_manager_.GetEnemies());      
+      collision_manager_.CheckCollisions(player_, enemy_manager_.GetEnemies());
+
+      stamina_bar_.UpdateStaminaBar(player_);
+      stamina_bar_.DrawStaminaBar(window_);
+
     }
     window_.display();
   }
