@@ -27,7 +27,6 @@ std::vector<Enemy>& EnemyManager::GetEnemies() { return enemies_; }
 void EnemyManager::SetAllDefault() {
   for(size_t i = 0; i < enemies_.size(); ++i) {
     enemies_[i].SetIsAlive(true);
-    enemies_[i].SetSpeedX(DefaultSettings::EnemySettings::x_speed);
-    enemies_[i].SetDirection(DefaultSettings::EnemySettings::direction);
+    enemies_[i].SetSpeedX(DefaultSettings::EnemySettings::x_speed * (enemies_[i].GetDirection() ? 1 : -1));
   }
 }

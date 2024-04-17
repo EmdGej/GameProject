@@ -15,7 +15,6 @@ namespace DefaultSettings {
 
     namespace EnemySettings {
         const double x_speed = 0.1;
-        const bool direction = true;
     }
 }
 
