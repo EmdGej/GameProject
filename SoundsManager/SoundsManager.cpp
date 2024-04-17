@@ -43,3 +43,14 @@ void SoundsManager::StopSound(const std::string& sound) {
 void SoundsManager::StopMusic(const std::string& music) {
   musics_[music]->stop();
 }
+
+SoundsManager::~SoundsManager() {
+  for (auto& elem: musics_) {
+    delete elem.second;
+  }
+
+  for (auto& elem: sounds_) {
+    delete elem.second.first;
+    delete elem.second.second;
+  }
+}

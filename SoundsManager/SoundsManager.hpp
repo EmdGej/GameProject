@@ -19,6 +19,8 @@ class SoundsManager {
   void StopSound(const std::string& sound);
 
   void StopMusic(const std::string& music);
+
+  ~SoundsManager();
   
  private:
   std::unordered_map<std::string, std::pair<sf::SoundBuffer*, sf::Sound*>> sounds_;
