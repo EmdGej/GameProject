@@ -14,7 +14,7 @@ class MenuManager {
 
     void AddMenu(const std::string& name, GameMenu* menu);
 
-    void UpdateCurMenu(sf::RenderWindow& window, Player& player, EnemyManager& enemy_manager);
+    void UpdateCurMenu(sf::RenderWindow& window, Player& player, EnemyManager& enemy_manager, double x_coord, double y_coord);
 
     void DrawCurMenu(sf::RenderWindow& window);
 

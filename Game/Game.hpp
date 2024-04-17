@@ -16,6 +16,8 @@
 #include "../SoundsManager/SoundsManager.hpp"
 #include "../StaminaBar/StaminaBar.hpp"
 #include "../HealthBar/HealthBar.hpp"
+#include "../CheckpointManager/CheckpointManager.hpp"
+
 class Game {
  public:
   Game(int32_t window_width, int32_t window_height);
@@ -31,6 +33,7 @@ class Game {
   ControlManager control_manager_;
   MenuManager menu_manager_;
   SoundsManager sounds_manager_;
+  CheckpointManager checkpoint_manager_;
 
 
   sf::Sprite background_;

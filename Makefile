@@ -1,14 +1,17 @@
 all: main
 	./sfml-app
 
-main: main.o Animation.o AnimationManager.o HealthBar.o StaminaBar.o Player.o AnimationLoader.o MapLoader.o Bullet.o BulletManager.o Enemy.o CollisionManager.o EnemyManager.o ControlManager.o SoundsManager.o Map.o DefaultSettings.o GameMenu.o MenuManager.o Game.o
-	g++ -std=c++17 -L $(pwd)/SFML/lib main.o Animation.o AnimationManager.o HealthBar.o StaminaBar.o Player.o AnimationLoader.o MapLoader.o Bullet.o BulletManager.o Enemy.o CollisionManager.o EnemyManager.o ControlManager.o SoundsManager.o Map.o DefaultSettings.o GameMenu.o MenuManager.o Game.o -o sfml-app -lsfml-graphics -lsfml-audio -lsfml-window -lsfml-system
+main: main.o Animation.o AnimationManager.o HealthBar.o StaminaBar.o Player.o AnimationLoader.o MapLoader.o Bullet.o BulletManager.o Enemy.o CollisionManager.o EnemyManager.o ControlManager.o SoundsManager.o Map.o DefaultSettings.o GameMenu.o MenuManager.o CheckpointManager.o Game.o
+	g++ -std=c++17 -L $(pwd)/SFML/lib main.o Animation.o AnimationManager.o HealthBar.o StaminaBar.o Player.o AnimationLoader.o MapLoader.o Bullet.o BulletManager.o Enemy.o CollisionManager.o EnemyManager.o ControlManager.o SoundsManager.o Map.o DefaultSettings.o GameMenu.o MenuManager.o CheckpointManager.o Game.o -o sfml-app -lsfml-graphics -lsfml-audio -lsfml-window -lsfml-system
 
 main.o: main.cpp
 	g++ -std=c++17 -c main.cpp -I $(pwd)/SFML/include
 
 Game.o: Game/Game.cpp Game/Game.hpp
 	g++ -std=c++17 -c Game/Game.cpp -I $(pwd)/SFML/include
+
+CheckpointManager.o: CheckpointManager/CheckpointManager.cpp CheckpointManager/CheckpointManager.hpp
+	g++ -std=c++17 -c CheckpointManager/CheckpointManager.cpp -I $(pwd)/SFML/include
 
 MenuManager.o: MenuManager/MenuManager.cpp MenuManager/MenuManager.hpp
 	g++ -std=c++17 -c MenuManager/MenuManager.cpp -I $(pwd)/SFML/include

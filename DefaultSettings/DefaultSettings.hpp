@@ -6,7 +6,7 @@
 namespace DefaultSettings {
     namespace PlayerSettings {
         const int32_t x_coord = 300;
-        const int32_t y_Coord = 700;
+        const int32_t y_coord = 700;
         const int32_t health = 100;
         const int32_t damage = 1;
         const double acceleration = 0.0015;

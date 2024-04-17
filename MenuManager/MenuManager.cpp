@@ -16,7 +16,7 @@ void MenuManager::AddMenu(const std::string& name, GameMenu* menu) {
     menus_[name] =  menu;
 }
 
-void MenuManager::UpdateCurMenu(sf::RenderWindow& window, Player& player, EnemyManager& enemy_manager) {
+void MenuManager::UpdateCurMenu(sf::RenderWindow& window, Player& player, EnemyManager& enemy_manager, double x_coord, double y_coord) {
     if(keys_["Up"]) {
         menus_[cur_menu_]->MoveUp();
     }
@@ -31,6 +31,8 @@ void MenuManager::UpdateCurMenu(sf::RenderWindow& window, Player& player, EnemyM
             if(menus_[cur_menu_]->GetCurItem().getString() == "Start") {
                 is_menu_ = false;
                 player.SetDefault();
+                player.SetXCoord(x_coord);
+                player.SetYCoord(y_coord);
                 enemy_manager.SetAllDefault();
             }
         }

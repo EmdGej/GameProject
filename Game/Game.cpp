@@ -7,6 +7,8 @@ Game::Game(int32_t window_width, int32_t window_height)
       map_(MapParams{tilemap, "lvl1", Height, Width, 32}) {
   background_txt_.loadFromFile("background/background.png");
 
+  checkpoint_manager_.LoadState();
+
   sf::Vector2u TextureSize = background_txt_.getSize();
 
   float ScaleX = (float) window_width / TextureSize.x;
@@ -17,7 +19,7 @@ Game::Game(int32_t window_width, int32_t window_height)
 
   animation_loader_.LoadSprites(animation_manager_);
 
-  player_ = Player(animation_manager_, 300, 700, 100, 1, 0.0015);
+  player_ = Player(animation_manager_, checkpoint_manager_.GetX(), checkpoint_manager_.GetY(), 100, 1, 0.0015);
   player_.SetDoubleJumpAbility(true);
   player_.SetSpeedY(0.6);
   player_.SetCurXSpeed(0.25);
@@ -39,6 +41,7 @@ Game::Game(int32_t window_width, int32_t window_height)
   tls_['V'] = "tiles/V.png";
   tls_['H'] = "tiles/H.png";
   tls_['R'] = "tiles/R.png";
+  tls_['C'] = "tiles/C.png";
 
   map_loader_.DownloadMap(tilemap, "lvl1", tls_, Height, Width, 32);
 
@@ -106,6 +109,9 @@ void Game::GameLoop() {
         if (event.key.code == sf::Keyboard::R && !menu_manager_.GetIsMenu()) {
           enemy_manager_.SetAllDefault();
           player_.SetDefault();
+          player_.SetXCoord(checkpoint_manager_.GetX());
+          player_.SetYCoord(checkpoint_manager_.GetY());
+
 
           game_music_playing = false;
           has_player_died = false;
@@ -121,7 +127,7 @@ void Game::GameLoop() {
 
         if(menu_manager_.GetIsMenu()) {
           control_manager_.ControlKeyboard(player_, menu_manager_, sounds_manager_);
-          menu_manager_.UpdateCurMenu(window_, player_, enemy_manager_);
+          menu_manager_.UpdateCurMenu(window_, player_, enemy_manager_, checkpoint_manager_.GetX(), checkpoint_manager_.GetY());
         }
       }
     }
@@ -170,6 +176,8 @@ void Game::GameLoop() {
 
       player_.UpdatePlayer(map_, colision_blocks_, die_blocks_, time);
       player_.DrawPlayer(window_, offsetX_, offsetY_);
+
+      checkpoint_manager_.CheckCollision(player_, map_);
 
       enemy_manager_.UpdateEnemies(time, bullet_manager_.GetBulletsList());
       enemy_manager_.DrawEnemies(window_, offsetX_, offsetY_);

@@ -120,7 +120,7 @@ void Player::SetHealth(int32_t value) { health_ = value; }
 
 void Player::SetDefault() {
   x_coord_ = DefaultSettings::PlayerSettings::x_coord;
-  y_coord_ = DefaultSettings::PlayerSettings::y_Coord;
+  y_coord_ = DefaultSettings::PlayerSettings::y_coord;
   health_ = DefaultSettings::PlayerSettings::health;
   damage_ = DefaultSettings::PlayerSettings::damage;
   acceleration_ = DefaultSettings::PlayerSettings::acceleration;
