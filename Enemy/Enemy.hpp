@@ -25,6 +25,8 @@ class Enemy : public AbstractEntity {
 
   bool GetIsAlive() const;
 
+  bool GetDirection() const;
+
   void SetSpeedX(double value);
 
   void SetDirection(bool flag);

@@ -63,6 +63,8 @@ void Player::SetKeys(std::string key, bool flag) { keys_[key] = flag; }
 double Player::GetXCoord() const { return x_coord_; }
 double Player::GetYCoord() const { return y_coord_; }
 
+double Player::GetStamina() const { return stamina_; }
+double Player::GetMaxStamina() const { return max_stamina_; }
 double Player::GetStaminaCoef() const { return kStaminaCoef; }
 double Player::GetStaminaLoss() const { return kStaminaLoss; }
 double Player::GetStaminaGet() const { return kStaminaGet; }
@@ -76,6 +78,8 @@ double Player::GetCurYSpeed() const { return y_speed_; }
 
 bool Player::GetDirection() const { return direction_; }
 bool Player::GetIsOnGround() const { return is_on_ground_; }
+
+bool Player::GetIsJumpAvailable() const { return is_double_jump_available_; }
 
 int32_t Player::GetHealth() const { return health_; }
 
@@ -113,3 +117,13 @@ void Player::SetCurYSpeed(double value) { y_speed_ = value; }
 void Player::SetAcceleration(double value) { acceleration_ = value; }
 
 void Player::SetHealth(int32_t value) { health_ = value; }
+
+void Player::SetDefault() {
+  x_coord_ = DefaultSettings::PlayerSettings::x_coord;
+  y_coord_ = DefaultSettings::PlayerSettings::y_coord;
+  health_ = DefaultSettings::PlayerSettings::health;
+  damage_ = DefaultSettings::PlayerSettings::damage;
+  acceleration_ = DefaultSettings::PlayerSettings::acceleration;
+  stamina_ = DefaultSettings::PlayerSettings::stamina;
+  STATE = stay;
+}

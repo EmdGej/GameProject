@@ -39,6 +39,7 @@ left, 1 - right - направление движения игрока const dou
 
 #include "../AbstractEntity/AbstractEntity.hpp"
 #include "../MapLoader/MapLoader.hpp"
+#include "../DefaultSettings/DefaultSettings.hpp"
 
 const double kLoadTime = 100;
 class Player : public AbstractEntity {
@@ -64,6 +65,8 @@ class Player : public AbstractEntity {
   double GetCurXSpeed() const;
   double GetCurYSpeed() const;
 
+  double GetStamina() const;
+  double GetMaxStamina() const;
   double GetStaminaCoef() const;
   double GetStaminaLoss() const;
   double GetStaminaGet() const;
@@ -73,6 +76,8 @@ class Player : public AbstractEntity {
 
   bool GetIsOnGround() const;
   bool GetDirection() const;
+
+  bool GetIsJumpAvailable() const;
 
   void SetSpeedX(double value);
   void SetSpeedY(double value);
@@ -96,6 +101,8 @@ class Player : public AbstractEntity {
 
   void SetHealth(int32_t value);
 
+  void SetDefault();
+
   int32_t GetAnimationWidth();
   int32_t GetAnimationHeight();
 
@@ -112,6 +119,7 @@ class Player : public AbstractEntity {
   double kSpeedY = 2;
 
   double stamina_ = 100;
+  double max_stamina_ = 100;
   double kStaminaCoef = 2;
   double kStaminaLoss = 0.015;
   double kStaminaGet = 0.008;

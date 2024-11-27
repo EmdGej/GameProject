@@ -61,6 +61,8 @@ double Enemy::GetXSpeed() const { return x_speed_; }
 
 bool Enemy::GetIsAlive() const { return is_alive_; }
 
+bool Enemy::GetDirection() const { return direction_; }
+
 void Enemy::SetSpeedX(double value) { x_speed_ = value; }
 
 void Enemy::SetDirection(bool flag) { direction_ = flag; }

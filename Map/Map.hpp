@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "../AnimationLoader/AnimationLoader.hpp"
+#include "../GameMenu/GameMenu.hpp"
 
 extern int32_t Height;
 extern int32_t Width;

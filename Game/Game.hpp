@@ -11,6 +11,12 @@
 #include "../Map/Map.hpp"
 #include "../MapLoader/MapLoader.hpp"
 #include "../Player/Player.hpp"
+#include "../GameMenu/GameMenu.hpp"
+#include "../MenuManager/MenuManager.hpp"
+#include "../SoundsManager/SoundsManager.hpp"
+#include "../StaminaBar/StaminaBar.hpp"
+#include "../HealthBar/HealthBar.hpp"
+#include "../CheckpointManager/CheckpointManager.hpp"
 
 class Game {
  public:
@@ -25,6 +31,10 @@ class Game {
   EnemyManager enemy_manager_;
   CollisionManager collision_manager_;
   ControlManager control_manager_;
+  MenuManager menu_manager_;
+  SoundsManager sounds_manager_;
+  CheckpointManager checkpoint_manager_;
+
 
   sf::Sprite background_;
   sf::Texture background_txt_;
@@ -33,6 +43,9 @@ class Game {
   std::vector<Enemy*> enemies_;
   std::unordered_map<char, std::string> tls_;
 
+  StaminaBar stamina_bar_;
+  HealthBar health_bar_;
+  
   MapParams map_;
   MapLoader map_loader_;
 

@@ -45,6 +45,14 @@ void BulletManager::UpdateDrawBullets(sf::RenderWindow& window,
 
 std::list<Bullet*>* BulletManager::GetBulletsList() { return &bullets_; }
 
+void BulletManager::Clear() {
+  for (auto bullet : bullets_) {
+    delete bullet;
+  }
+
+  bullets_.clear();
+}
+
 BulletManager::~BulletManager() {
   for (auto bullet : bullets_) {
     delete bullet;
